@@ -20,6 +20,15 @@ int main(int argc, char* argv[]){ //Arg stuff added for command line inputs
 	Eventually terminate, and normal exit
 
 	*/	
+	/* Ideas for storage
+	
+	uint32_t[32] registers; // 32 registers each 32 bits long
+	uint32_t[a long number] ROM; // Read only memory
+	uint32_t [a different number] RAM; //Read / Write memory
+	uint32_t write_location; //location for stdout
+	uint32_t read_location; //location for stdin
+	
+	*/
 	
 
 

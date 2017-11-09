@@ -11,13 +11,16 @@ using namespace std;
 int main(int argc, char* argv[]){ //Arg stuff added for command line inputs
 
 	uint32_t registers[32] ={}; //Instantiate variables for memory
-	uint32_t RAM[4194304] ={};	//Arrays are initialised to 0
-	uint32_t ROM[16777216] ={};
+	//uint32_t RAM[16777216  ] ={};	//Arrays are initialised to 0
+	//uint32_t ROM[4194304] ={};
 	uint32_t write_location =0;
 	uint32_t read_location=0;
 	
+	//While fixing issues with current arrays using smaller ones as filler
+	uint32_t RAM[10];
+	uint32_t ROM[10];
 	
-	/*if(argc<1){
+	if(argc<2){
 		cout<<"Missing parameters"<<endl;
 		exit(-21);
 	}
@@ -37,9 +40,11 @@ int main(int argc, char* argv[]){ //Arg stuff added for command line inputs
 	while(bin_in>>a){
 		ROM[i]=a;
 		i++;
-		if(i>4194304); //array overflow handler
-		cout<<"Error, binary has too many instructions"<<endl;
-		exit(-21);
+		if(i>10){ //array overflow handler
+		//number smaller than it should be
+			cout<<"Error, binary has too many instructions"<<endl;
+			exit(-21);
+		}
 	}
 	
 	bin_in.close();
@@ -48,11 +53,11 @@ int main(int argc, char* argv[]){ //Arg stuff added for command line inputs
 	ofstream out_file;
 	
 	out_file.open("dummy_out.txt");
-	for(uint32_t j=0; j<=i;j++){
-		out_file<<RAM[j];
+	for(uint32_t j=0; j<i;j++){
+		out_file<<ROM[j]<<endl;
 	}
 	out_file.close();
 	
-	*/
+	
 	return 0;
 }

@@ -2,4 +2,4 @@ This repository contains the src files required to compile a working MIPs simula
 
 This project was created by Tim Wu, Mayank Surana, and Edward Pickup
 
-To compile the project from source provided use the make file provided.
+To compile the project from source provided use the make file provided and run "make bin/mips_simulator"

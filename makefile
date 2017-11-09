@@ -1,2 +1,2 @@
 bin/mips_simulator : src/simulator.cpp
-	g++ -W -Wall src/simulator.cpp -o bin/mips_simulator
+	g++ -std=c++11 -W -Wall src/simulator.cpp -o bin/mips_simulator

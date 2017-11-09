@@ -1,56 +1,58 @@
 #include<iostream> //Required for std_in and std_out
-#include<cstdlib> //Required for exit
 #include<fstream> //Required to read from files
+#include<cstdlib> //Required for exit
 #include<cstdint>//Required for uint_t type
 
 
-//void decode_inst(uint32_t instruction, int& opcode, int& funct_bit); // function which takes instruction by reference and opcode and funct_bit by value, and returns opcode and functiom
+using namespace std;
+
 
 
 int main(int argc, char* argv[]){ //Arg stuff added for command line inputs
-	/*
 
-	Suggested format for main
-	Store input binary in container: vector vs array? - container size is known, so probably array
-		
-	while(running) - some condition to run, set at true on start
-		decode instruction
-		execute instruction
-		go to next instruction
-	Eventually terminate, and normal exit
+	uint32_t registers[32] ={}; //Instantiate variables for memory
+	uint32_t RAM[4194304] ={};	//Arrays are initialised to 0
+	uint32_t ROM[16777216] ={};
+	uint32_t write_location =0;
+	uint32_t read_location=0;
 	
-	^Probably best to include the exception conditions within this while statement and immediately terminate if any are true:
 	
-	- Arithmetic exception (-10) : Any kind of arithmetic problem, such as overflow, divide by zero, ...
-	- Memory exception (-11) : Any problem relating to memory, such as address out of range, writing to read-only memory, reading from an address that cannot be read, executing an address that cannot be executed
-	- Invalid instruction (-12) : The Binary tries to execute a memory location that does not contain a valid instruction.
+	/*if(argc<1){
+		cout<<"Missing parameters"<<endl;
+		exit(-21);
+	}
 	
-	- Internal error (-20) : the simulator has failed due to some unknown error
-	- IO error (-21) : the simulator encountered an error reading/writing input/output
-
-	*/	
-	/* Ideas for Memory
+	//Get binary
 	
-	uint32_t[32] registers; // 32 registers each 32 bits long
-	uint32_t[‭4194304‬] ROM; // Read only memory - 4 meg
-	uint32_t [‭16777216‬] RAM; //Read / Write memory - 16 meg
-	uint32_t write_location; //location for stdout
-	uint32_t read_location; //location for stdin
+	ifstream bin_in;
 	
-	If incorrect read/write - error code. No need to assign unmapped memory to array. 
-	Memory access functions will have to translate between the seperate arrays and the memory map
+	bin_in.open(argv[1]); //the first parameter will be name / location of bin
+	if(!(bin_in.is_open())){ //if not opened then return error
+		cout<<"Error, binary not found"<<endl; 
+		exit(-21);//error should be this type, I think?
+	}
+	//Now to read it
+	uint32_t a,i; //one is indexer, other input
+	i=0; //index starts at 0
+	while(bin_in>>a){
+		ROM[i]=a;
+		i++;
+		if(i>4194304); //array overflow handler
+		cout<<"Error, binary has too many instructions"<<endl;
+		exit(-21);
+	}
+	
+	bin_in.close();
+	//now for a dummy function to test some stuff. Delete later
+	
+	ofstream out_file;
+	
+	out_file.open("dummy_out.txt");
+	for(uint32_t j=0; j<=i;j++){
+		out_file<<RAM[j];
+	}
+	out_file.close();
 	
 	*/
-	
-	
-	/*
-	Ideas for code 
-	Multiple source / header files
-	Header files for R,I,J type instructions? And one for test functions
-	
-	*/
-	
-
-
 	return 0;
 }

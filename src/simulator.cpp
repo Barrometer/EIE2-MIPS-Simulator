@@ -29,13 +29,24 @@ int main(int argc, char* argv[]){ //Arg stuff added for command line inputs
 	- IO error (-21) : the simulator encountered an error reading/writing input/output
 
 	*/	
-	/* Ideas for storage
+	/* Ideas for Memory
 	
 	uint32_t[32] registers; // 32 registers each 32 bits long
-	uint32_t[a long number] ROM; // Read only memory
-	uint32_t [a different number] RAM; //Read / Write memory
+	uint32_t[‭4194304‬] ROM; // Read only memory - 4 meg
+	uint32_t [‭16777216‬] RAM; //Read / Write memory - 16 meg
 	uint32_t write_location; //location for stdout
 	uint32_t read_location; //location for stdin
+	
+	If incorrect read/write - error code. No need to assign unmapped memory to array. 
+	Memory access functions will have to translate between the seperate arrays and the memory map
+	
+	*/
+	
+	
+	/*
+	Ideas for code 
+	Multiple source / header files
+	Header files for R,I,J type instructions? And one for test functions
 	
 	*/
 	

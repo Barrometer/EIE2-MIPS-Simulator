@@ -18,6 +18,15 @@ int main(int argc, char* argv[]){ //Arg stuff added for command line inputs
 		execute instruction
 		go to next instruction
 	Eventually terminate, and normal exit
+	
+	^Probably best to include the exception conditions within this while statement and immediately terminate if any are true:
+	
+	- Arithmetic exception (-10) : Any kind of arithmetic problem, such as overflow, divide by zero, ...
+	- Memory exception (-11) : Any problem relating to memory, such as address out of range, writing to read-only memory, reading from an address that cannot be read, executing an address that cannot be executed
+	- Invalid instruction (-12) : The Binary tries to execute a memory location that does not contain a valid instruction.
+	
+	- Internal error (-20) : the simulator has failed due to some unknown error
+	- IO error (-21) : the simulator encountered an error reading/writing input/output
 
 	*/	
 	/* Ideas for storage

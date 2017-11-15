@@ -16,14 +16,13 @@ if (opcode == 0) {
 	R_type_function;
 }
 
-if (opcode == 1) {
+// Edited from if opcode == 1 to 2 or 3 (see first lecture notes)
+if (opcode == 2|| opcode == 3) {
 	J_type_function;
 }
+
 else {
-	
-if (opcode == 0) {
 	I_type_function;
-}
 }
 */
 
@@ -111,12 +110,20 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 			registers[3] = dest;
 		}
 /*
-		if (opcode == 1) {
+		if (opcode == 2 || opcode == 3) {
 			J_type_function;
+			
+			// only Jump and Jump Link need to implemented. 
+			
+			
 		}
 		else {
 			I_type_function;
-		
+			
+			//Binary breakdown
+			unsigned source_register = //right shift by 21, logic AND with hex (2^6)-1 = 0x1F
+			unsigned target_register = //right shift by 16, logic AND with hex (2^6)-1 = 0x1f
+			immediate_value = //logic AND with hex (2^17)-1 = 0x1FFFF
 		}
 */
 		

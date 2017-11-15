@@ -65,19 +65,16 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 		cout << a << endl;
 		i++;
 		
-	/*	if(i>10){ //array overflow handler
-		//number smaller than it should be
-			cout<<"Error, binary has too many instructions"<<endl;
-			exit(-21); 
-		}
-		*/
+	//need an overflow / too big handler. Even though vectors have no fixed size, we should not have more than 4.1mil entries in it
 	}
 	bin_in.close();
 
 	
 	cout << "HERE!" << endl;
 	cout << ROM.size() << endl;
-	for (int j = 0; j<ROM.size(); j++){
+	for (int j = 0; j<ROM.size(); j++){ //This will need changing
+		
+		//uint32_t program counter; // Program counter will have value as physical cpu will; code will translate to useful values
 		unsigned test = ROM[j];
 		unsigned opcode = test >> 26;
 		cout << "The value of the opcode :" <<  opcode << endl;

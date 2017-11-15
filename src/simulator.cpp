@@ -30,20 +30,21 @@ if (opcode == 0) {
 int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 
 	uint32_t registers[32] ={17, 53}; //Instantiate variables for memory
-	vector <uint32_t> RAM; //[16777216];	//Arrays are initialised to 0
-	vector <uint32_t> ROM; // [4194304];
-	//uint32_t write_location =0;
-	//uint32_t read_location=0;
+	vector <uint32_t> RAM =(16777216); //we should set its starting size
+	vector <uint32_t> ROM; // [4194304]
 	
-	//While fixing issues with current arrays using smaller ones as filler
-	//uint32_t RAM[10];
-	//uint32_t ROM[10];
+	//do we actually need these? Thinking about it, no
+	/*uint32_t write_location =0;
+	uint32_t read_location=0;*/
 	
-	/*if(argc<2){
+	
+	uint32_t program_counter; //should initialise to something
+	
+	if(argc<2){
 		cout<<"Missing parameters"<<endl;
 		exit(-21);
 	}
-	*/
+	
 	
 	//Get binary
 	
@@ -55,7 +56,7 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 		exit(-21);//error should be this type, I think?
 	}
 	//Now to read it
-	uint32_t a =0; //one is indexer, other input
+	uint32_t a =0; //input holder
 	//index starts at 0
 	int i = 0;
 	while(bin_in>>a){
@@ -63,12 +64,19 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 		
 		ROM.push_back(a);
 		cout << a << endl;
-		i++;
-		
-	//need an overflow / too big handler. Even though vectors have no fixed size, we should not have more than 4.1mil entries in it
+		if(ROM.size()>4194304){//even though vectors are arbitrary in size, should not allow it to grow beyond this
+			cout<<"ERRROR, Binary has too many instructions"<<endl;
+			exit(-21);
+		}
+	
 	}
 	bin_in.close();
-
+	//Dummy holder for main loop
+	/* while(running){
+		decode(RAM[pcounter]);
+		run(decoded instruction)
+	}
+	*/
 	
 	cout << "HERE!" << endl;
 	cout << ROM.size() << endl;
@@ -113,16 +121,6 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 */
 		
 	}
-	//now for a dummy function to test some stuff. Delete later
-	
-	/*ofstream out_file;
-	
-	out_file.open("dummy_out.txt");
-	for(int j=0; j<i;j++){
-		out_file<<ROM[j]<<endl;
-	}
-	out_file.close();
-	*/
 	
 	return 0;
 }

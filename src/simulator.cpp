@@ -3,9 +3,10 @@
 #include<cstdlib> //Required for exit
 #include <stdint.h> //Required for uint_t type
 #include <vector>
-
+#include "r_type.cpp"
 
 using namespace std;
+
 
 /* OPCODE TEST : 
 
@@ -28,7 +29,7 @@ if (opcode == 0) {
 
 int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 
-//	uint32_t registers[32]; //Instantiate variables for memory
+	uint32_t registers[32] ={17, 53}; //Instantiate variables for memory
 	vector <uint32_t> RAM; //[16777216];	//Arrays are initialised to 0
 	vector <uint32_t> ROM; // [4194304];
 	//uint32_t write_location =0;
@@ -61,7 +62,7 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 		
 		
 		ROM.push_back(a);
-		cout << a << " "<< i<< endl;
+		cout << a << endl;
 		i++;
 		
 	/*	if(i>10){ //array overflow handler
@@ -71,8 +72,50 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 		}
 		*/
 	}
-	
 	bin_in.close();
+
+	
+	cout << "HERE!" << endl;
+	cout << ROM.size() << endl;
+	for (int j = 0; j<ROM.size(); j++){
+		unsigned test = ROM[j];
+		unsigned opcode = test >> 26;
+		cout << "The value of the opcode :" <<  opcode << endl;
+		
+		if (opcode == 0) {
+			
+			unsigned reg1 = registers[((test >> 21) & 0x1f)];
+			unsigned reg2 = registers[((test >> 16) & 0x1f)];
+			uint32_t dest = ((test >> 11) & 0x1f);
+			unsigned shift = ((test >> 6) & 0x1f);
+			unsigned function = (test & 0x3f);
+
+
+			//cout << "The value of the Instruction :" << test << endl;
+			
+			cout << "The value of the Source1 :" << reg1 << endl;
+			cout << "The value of the Source2 :" << reg2 << endl;
+			cout << "The value of the dest :" << dest << endl;
+			cout << "The value of the shift :" << shift << endl;
+			cout << "The value of the function :" << function << endl;
+
+			r_type(reg1,reg2,dest,shift,function);
+			
+			cout << "The value of the dest :" << dest << endl;
+			
+			registers[3] = dest;
+		}
+/*
+		if (opcode == 1) {
+			J_type_function;
+		}
+		else {
+			I_type_function;
+		
+		}
+*/
+		
+	}
 	//now for a dummy function to test some stuff. Delete later
 	
 	/*ofstream out_file;

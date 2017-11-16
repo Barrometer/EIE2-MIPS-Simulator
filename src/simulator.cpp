@@ -3,47 +3,29 @@
 #include<cstdlib> //Required for exit
 #include <stdint.h> //Required for uint_t type
 #include <vector>
-#include "r_type.cpp"
+//#include "r_type.cpp"
 
 using namespace std;
 
+//hideous global variable arrays
+//these arrays are put as global as it means they will not overflow in the stack, as they are part of the heap
+uint32_t RAM[16777216]={0};
+uint32_t ROM[4194304]={0};
+//all elements are intitalised to zero
 
-/* OPCODE TEST : 
-
-unsigned opcode = test >> 26;
-
-if (opcode == 0) {
-	R_type_function;
-}
-
-if (opcode == 1) {
-	J_type_function;
-}
-else {
-	
-if (opcode == 0) {
-	I_type_function;
-}
-}
-*/
 
 int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
-
-	uint32_t registers[32] ={17, 53}; //Instantiate variables for memory
-	vector <uint32_t> RAM; //[16777216];	//Arrays are initialised to 0
-	vector <uint32_t> ROM; // [4194304];
-	//uint32_t write_location =0;
-	//uint32_t read_location=0;
 	
-	//While fixing issues with current arrays using smaller ones as filler
-	//uint32_t RAM[10];
-	//uint32_t ROM[10];
+	//variables local to main
+	uint32_t registers[32] ={0};
+ 	// register 0 will always be 0. Add something to major loop enforcing this
 	
-	/*if(argc<2){
+	//Check for expected number of inputs
+	if(argc<2){
 		cout<<"Missing parameters"<<endl;
-		exit(-21);
+		exit(-21); //relevant exit code
 	}
-	*/
+	
 	
 	//Get binary
 	
@@ -52,82 +34,105 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 	bin_in.open(argv[1]); //the first parameter will be name / location of bin
 	if(!(bin_in.is_open())){ //if not opened then return error
 		cout<<"Error, binary not found"<<endl; 
-		exit(-21);//error should be this type, I think?
+		exit(-21);//relevant exit code
 	}
-	//Now to read it
-	uint32_t a =0; //one is indexer, other input
-	//index starts at 0
-	int i = 0;
+	
+	//now to store in array
+	uint32_t a,b;
+	b =0; //b is indexer for array
 	while(bin_in>>a){
-		
-		
-		ROM.push_back(a);
-		cout << a << endl;
-		i++;
-		
-	/*	if(i>10){ //array overflow handler
-		//number smaller than it should be
-			cout<<"Error, binary has too many instructions"<<endl;
-			exit(-21); 
+		cout<<"DEBUG, storing element "<<a<<" at ROM index "<<b<<endl;
+		ROM[b]=a;
+		cout<<"DEBUG, ROM[b] = "<<ROM[b]<<endl;
+		b++;
+		if(b>4194304){//overflow case
+			cout<<"ERROR, binary is too large"<<endl;
+			exit(-21);
 		}
-		*/
 	}
 	bin_in.close();
-
+	cout<<"DEBUG, binary stored in ROM, closed"<<endl;
 	
-	cout << "HERE!" << endl;
-	cout << ROM.size() << endl;
-	for (int j = 0; j<ROM.size(); j++){
-		unsigned test = ROM[j];
-		unsigned opcode = test >> 26;
-		cout << "The value of the opcode :" <<  opcode << endl;
+	/*cout<<"TEST OPERATION, OUTPUTTING ROM"<<endl;
+	ofstream dummy_out;
+	dummy_out.open("dummy_out.txt");
+	// new indexer
+	for(uint32_t c =0; c<b;c++){
 		
-		if (opcode == 0) {
-			
-			unsigned reg1 = registers[((test >> 21) & 0x1f)];
-			unsigned reg2 = registers[((test >> 16) & 0x1f)];
-			uint32_t dest = ((test >> 11) & 0x1f);
-			unsigned shift = ((test >> 6) & 0x1f);
-			unsigned function = (test & 0x3f);
-
-
-			//cout << "The value of the Instruction :" << test << endl;
-			
-			cout << "The value of the Source1 :" << reg1 << endl;
-			cout << "The value of the Source2 :" << reg2 << endl;
-			cout << "The value of the dest :" << dest << endl;
-			cout << "The value of the shift :" << shift << endl;
-			cout << "The value of the function :" << function << endl;
-
-			r_type(reg1,reg2,dest,shift,function);
-			
-			cout << "The value of the dest :" << dest << endl;
-			
-			registers[3] = dest;
-		}
-/*
-		if (opcode == 1) {
-			J_type_function;
-		}
-		else {
-			I_type_function;
-		
-		}
-*/
-		
+		dummy_out<<ROM[c]<<endl;
 	}
-	//now for a dummy function to test some stuff. Delete later
-	
-	/*ofstream out_file;
-	
-	out_file.open("dummy_out.txt");
-	for(int j=0; j<i;j++){
-		out_file<<ROM[j]<<endl;
-	}
-	out_file.close();
 	*/
+	
+	
+	
+	
+	bool running = true; // this bool will be the controller on running
+	
+	
+	uint32_t prog_counter =0x10000000; // points to address ADDR_INSTR using its "actual" memory location
+	uint32_t prog_counter_next; //points to next instruction
+	
+	//ok, main loop
+	
+	while(running){
+		//default stuff
+		prog_counter_next = prog_counter +4; //default case, prog_counter_next could be updated further on
+		registers[0]=0; //just to make bloody sure
+		
+		//HERE YOU CAN DO STUFF	
+	
+		/*
+		fetch
+		decode
+		execute
+		
+		*/	
+	
+	
+		//these things should happen at the end of every loop. 
+		//Think before you put new stuff after this point!
+		
+		
+		//register 0 should always be zero
+		registers[0]=0; 
+		/*there are other ways of doing this, and we should probably code all functions to not update reg 0 with the result of an operation, but this is a good check
+		*/
+		
+		
+		//update program counter for next iteration of loop
+		cout<<"DEBUG, prog counter"<<endl;
+		cout<<prog_counter<<endl;
+		
+		prog_counter = prog_counter_next;
+		
+		cout<<"DEBUG, prog counter updated"<<endl;
+		cout<<prog_counter<<endl;
+		//prog_counter_next defaults to prog_counter+4, but could have been altered by instructions
+		
+		
+		
+		//now for some debug, remove as soon as stuff exists
+		cout<<"STUPID DEBUG, IF YOU SEE THIS THEN YOU LEFT THE LOOP YOU FOOL!"<<endl;
+		cout<<prog_counter<<endl;
+		cout<<prog_counter_next<<endl;
+		cout<<registers[0]<<endl;
+		cout<<"DEBUG LEAVE LOOP"<<endl;
+		running =false;
+	}
+	
+	cout<<"End of current code"<<endl;
 	
 	return 0;
 }
+
+
+
+
+
+
+
+
+
+
 
 

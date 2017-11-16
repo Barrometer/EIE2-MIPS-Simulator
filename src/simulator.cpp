@@ -9,9 +9,10 @@ using namespace std;
 
 //hideous global variable arrays
 //these arrays are put as global as it means they will not overflow in the stack, as they are part of the heap
-uint32_t RAM[16777216]={0};
-uint32_t ROM[4194304]={0};
+uint8_t RAM[67108864]={0};
+uint8_t ROM[16777216]={0};
 //all elements are intitalised to zero
+//arrays contain bytes
 
 
 int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
@@ -38,14 +39,15 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 	}
 	
 	//now to store in array
-	uint32_t a,b;
+	uint8_t a;
+	uint32_t b;
 	b =0; //b is indexer for array
 	while(bin_in>>a){
 		cout<<"DEBUG, storing element "<<a<<" at ROM index "<<b<<endl;
 		ROM[b]=a;
-		cout<<"DEBUG, ROM[b] = "<<ROM[b]<<endl;
+		cout<<"DEBUG, ROM["<<b<<"] = "<<ROM[b]<<endl;
 		b++;
-		if(b>4194304){//overflow case
+		if(b>(16777216)){//overflow case
 			cout<<"ERROR, binary is too large"<<endl;
 			exit(-21);
 		}
@@ -53,15 +55,24 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 	bin_in.close();
 	cout<<"DEBUG, binary stored in ROM, closed"<<endl;
 	
-	/*cout<<"TEST OPERATION, OUTPUTTING ROM"<<endl;
-	ofstream dummy_out;
-	dummy_out.open("dummy_out.txt");
+	
+	
+	cout<<"TEST OPERATION, DUMP ROM as bytes"<<endl;
+	ofstream ROM_DUMP;
+	ROM_DUMP.open("ROM_DUMP.txt");
 	// new indexer
 	for(uint32_t c =0; c<b;c++){
 		
-		dummy_out<<ROM[c]<<endl;
+		ROM_DUMP<<ROM[c]<<endl;
 	}
-	*/
+	ROM_DUMP.close();
+	cout<<"TEST OPERATION, DUMP ROM as words"<<endl;
+	ofstream ROM_DUMPw;
+	ROM_DUMPw.open("ROM_DUMPw.txt");
+	for(uint32_t d=0;d<b;d=+4){
+		ROM_DUMPw<<ROM[d]<<ROM[d+1]<<ROM[d+2]<<ROM[d+3]<<endl;
+	}
+	
 	
 	
 	
@@ -124,6 +135,7 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 	
 	return 0;
 }
+
 
 
 

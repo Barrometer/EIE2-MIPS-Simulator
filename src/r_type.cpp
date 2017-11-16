@@ -15,7 +15,13 @@ dest = reg1 + reg2;
 }
 // Now we have access to all the individual locations 
 
+else if (function == 36) { // AND -Bitwise Logical AND 
+dest = reg1 & reg2;
+}
 
+else if ( function == 37){ // OR - Bitwise Logical OR
+dest = reg1 | reg2;
+}
 }
 
 

@@ -39,9 +39,9 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 	}
 	
 	//now to store in array
-	uint8_t a;
-	uint32_t b;
-	b =0; //b is indexer for array
+	/* EDWARD'S CODE
+	
+	uint32_t b =0; //b is indexer for array
 	while(bin_in>>a){
 		cout<<"DEBUG, storing element "<<a<<" at ROM index "<<b<<endl;
 		ROM[b]=a;
@@ -54,24 +54,92 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 	}
 	bin_in.close();
 	cout<<"DEBUG, binary stored in ROM, closed"<<endl;
+	*/
+	// USELESS CODE - PLEASE IGNORE
+	//char a;
+	//vector<char> set;// Array of characters
+	//string input;
+	//index starts at 0
+	uint32_t i = 0; // Number of inputs
+	// gets the value from the binary file 
+	char a;
 	
+	//cout << "The size of the file :" << bin_in.tellg() << endl;
+	while(bin_in.get(a)){
+		cout<<"DEBUG, storing element "<<a<<" at ROM index "<<i<<endl;
+		ROM[i]=a;
+		cout<<"DEBUG, ROM["<<i<<"] = "<<ROM[i]<<endl;
 	
+	i++;
+	if(i>(16777216)){//overflow case
+			cout<<"ERROR, binary is too large"<<endl;
+			exit(-21);
+		}
+	}
 	
+	bin_in.close();
+	// Cheeky bit of testing for each byte;
+	/*
+	for(int k = 0; k<i; k++){
+		//printf ("0x%X\n", set[k]);
+	}
+	*/
+	cout << "The value of i" << i <<endl;
+	int no_inputs = i/4;
+	
+	// The process from combining the 4 char files into one single 32 bit number;
+	// The process of combining the bytes into a word;
+	
+	/*
+	for (int j =0; j <no_inputs; j++){ 
+	
+	byte1 = set[0 + (no_inputs*j)] << 24;
+	byte2 = set[1 + (no_inputs*j)] << 16;
+	byte3 = set[2 + (no_inputs*j)] << 8;
+	byte4 = set[3 + (no_inputs*j)];
+	total = (byte1 | byte2 | byte3 | byte4);
+	cout << "Value of the Data Stored: " << total << endl;
+	instruction_set.push_back(total);
+	byte1 = 0;byte2 = 0;byte3 = 0;byte4 = 0;total = 0;
+	}
+	*/
+	int32_t byte1 = 0,byte2 = 0 ,byte3 = 0,byte4 = 0,total = 0;
+	/* BYTE SEGMENT WORKS
 	cout<<"TEST OPERATION, DUMP ROM as bytes"<<endl;
 	ofstream ROM_DUMP;
 	ROM_DUMP.open("ROM_DUMP.txt");
 	// new indexer
-	for(uint32_t c =0; c<b;c++){
+	for(uint32_t c =0; c<i;c++){
 		
+		cout << "Outputting the value in a byte" << ROM[c] << endl;
 		ROM_DUMP<<ROM[c]<<endl;
 	}
 	ROM_DUMP.close();
+	*/
 	cout<<"TEST OPERATION, DUMP ROM as words"<<endl;
 	ofstream ROM_DUMPw;
 	ROM_DUMPw.open("ROM_DUMPw.txt");
-	for(uint32_t d=0;d<b;d=+4){
-		ROM_DUMPw<<ROM[d]<<ROM[d+1]<<ROM[d+2]<<ROM[d+3]<<endl;
+	
+	cout << "Loop 2 Entered" << endl;
+	
+	for (int j =0; j <no_inputs; j++){ 
+	
+	byte1 = ROM[0 + (no_inputs*j)] << 24;
+	byte2 = ROM[1 + (no_inputs*j)] << 16;
+	byte3 = ROM[2 + (no_inputs*j)] << 8;
+	byte4 = ROM[3 + (no_inputs*j)];
+	total = (byte1 | byte2 | byte3 | byte4);
+	cout << "Value of the Data Stored: " << total << endl;
+	ROM_DUMPw << total << " " <<endl;
+	//instruction_set.push_back(total);
+	byte1 = 0;byte2 = 0;byte3 = 0;byte4 = 0;total = 0;
+	
 	}
+		
+		//byte1 = 0;byte2 = 0;byte3 = 0;byte4 = 0;total = 0;
+		//instruction_set.push_back(total);
+		//ROM_DUMPw<<ROM[d]<<ROM[d+1]<<ROM[d+2]<<ROM[d+3]<<endl;
+	
 	
 	
 	

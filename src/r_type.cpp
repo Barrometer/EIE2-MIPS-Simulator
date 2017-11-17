@@ -7,23 +7,35 @@ using namespace std;
 //int32_t u32Int;
 
 
-void r_type(int32_t reg1, int32_t reg2,int32_t& dest, int8_t shift, int8_t function){
+int32_t r_type(int32_t reg1, int32_t reg2, int8_t shift, int8_t function){
 	
 	
 if (function == 33){ // ADDU - doesn't need to track overflow //
-dest = reg1 + reg2;
+return (reg1 + reg2);
 }
 // Now we have access to all the individual locations 
 
 else if (function == 36) { // AND -Bitwise Logical AND 
-dest = reg1 & reg2;
+return (reg1 & reg2);
 }
 
 else if ( function == 37){ // OR - Bitwise Logical OR
-dest = reg1 | reg2;
-}
+return (reg1 | reg2);
 }
 
+else if ( function == 38){ // XOR - Bitwise Logical OR
+return (reg1 ^ reg2);
+}
+
+else if ( function == 35){ // SUBU - Bitwise Logical OR
+return (reg1 - reg2);
+}
+
+else if ( function == 43){ // SLTU - Set on Less Than Unsigned
+return (reg1 < reg2);
+}
+
+}
 
 //void ADDU(int32_t reg1, int32_t reg2, int32_t dest);
 
@@ -31,4 +43,4 @@ dest = reg1 | reg2;
 have them be called by wrapped functionr (ie the r_type in this file)
 as this is probably neater. void r_type should take the register array as an input, then the five or so numbers
 and then call the relevant assembley level instruction based on function value, and pass the registers in directly
-Because of branch instructions existing for r-types, we will also need to pass program counter as an input by reference
+Because of branch instructions existing for r-types, we will also need to pass program counter as an input by reference*/

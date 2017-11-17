@@ -3,7 +3,7 @@
 #include<cstdlib> //Required for exit
 #include <stdint.h> //Required for uint_t type
 #include <vector>
-//#include "r_type.cpp"
+#include "r_type.cpp"
 
 using namespace std;
 
@@ -19,6 +19,8 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 	
 	//variables local to main
 	uint32_t registers[32] ={0};
+	registers[1] = 5;
+	registers[2] = 7;
  	// register 0 will always be 0. Add something to major loop enforcing this
 	
 	//Check for expected number of inputs
@@ -38,37 +40,16 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 		exit(-21);//relevant exit code
 	}
 	
-	//now to store in array
-	/* EDWARD'S CODE
 	
-	uint32_t b =0; //b is indexer for array
-	while(bin_in>>a){
-		cout<<"DEBUG, storing element "<<a<<" at ROM index "<<b<<endl;
-		ROM[b]=a;
-		cout<<"DEBUG, ROM["<<b<<"] = "<<ROM[b]<<endl;
-		b++;
-		if(b>(16777216)){//overflow case
-			cout<<"ERROR, binary is too large"<<endl;
-			exit(-21);
-		}
-	}
-	bin_in.close();
-	cout<<"DEBUG, binary stored in ROM, closed"<<endl;
-	*/
-	// USELESS CODE - PLEASE IGNORE
-	//char a;
-	//vector<char> set;// Array of characters
-	//string input;
-	//index starts at 0
 	uint32_t i = 0; // Number of inputs
 	// gets the value from the binary file 
 	char a;
 	
-	//cout << "The size of the file :" << bin_in.tellg() << endl;
+
 	while(bin_in.get(a)){
-		cout<<"DEBUG, storing element "<<a<<" at ROM index "<<i<<endl;
+		//cout<<"DEBUG, storing element "<<a<<" at ROM index "<<i<<endl;
 		ROM[i]=a;
-		cout<<"DEBUG, ROM["<<i<<"] = "<<ROM[i]<<endl;
+		//cout<<"DEBUG, ROM["<<i<<"] = "<<ROM[i]<<endl;
 	
 	i++;
 	if(i>(16777216)){//overflow case
@@ -78,33 +59,19 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 	}
 	
 	bin_in.close();
-	// Cheeky bit of testing for each byte;
-	/*
+	// Uploading Binary Completed
+
+	/* Cheeky bit of testing for each byte;
 	for(int k = 0; k<i; k++){
-		//printf ("0x%X\n", set[k]);
+		printf ("0x%X\n", set[k]);
 	}
 	*/
-	cout << "The value of i" << i <<endl;
+	
+	//cout << "The value of i" << i <<endl;
 	int no_inputs = i/4;
-	
-	// The process from combining the 4 char files into one single 32 bit number;
-	// The process of combining the bytes into a word;
-	
-	/*
-	for (int j =0; j <no_inputs; j++){ 
-	
-	byte1 = set[0 + (no_inputs*j)] << 24;
-	byte2 = set[1 + (no_inputs*j)] << 16;
-	byte3 = set[2 + (no_inputs*j)] << 8;
-	byte4 = set[3 + (no_inputs*j)];
-	total = (byte1 | byte2 | byte3 | byte4);
-	cout << "Value of the Data Stored: " << total << endl;
-	instruction_set.push_back(total);
-	byte1 = 0;byte2 = 0;byte3 = 0;byte4 = 0;total = 0;
-	}
-	*/
+	/* - The testing into a test file
 	int32_t byte1 = 0,byte2 = 0 ,byte3 = 0,byte4 = 0,total = 0;
-	/* BYTE SEGMENT WORKS
+
 	cout<<"TEST OPERATION, DUMP ROM as bytes"<<endl;
 	ofstream ROM_DUMP;
 	ROM_DUMP.open("ROM_DUMP.txt");
@@ -115,7 +82,6 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 		ROM_DUMP<<ROM[c]<<endl;
 	}
 	ROM_DUMP.close();
-	*/
 	cout<<"TEST OPERATION, DUMP ROM as words"<<endl;
 	ofstream ROM_DUMPw;
 	ROM_DUMPw.open("ROM_DUMPw.txt");
@@ -124,10 +90,13 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 	
 	for (int j =0; j <no_inputs; j++){ 
 	
-	byte1 = ROM[0 + (no_inputs*j)] << 24;
-	byte2 = ROM[1 + (no_inputs*j)] << 16;
-	byte3 = ROM[2 + (no_inputs*j)] << 8;
-	byte4 = ROM[3 + (no_inputs*j)];
+	// The process from combining the 4 char files into one single 32 bit number;
+	// The process of combining the bytes into a word;
+	
+	byte1 = ROM[(4*j)] << 24;
+	byte2 = ROM[1 + (4*j)] << 16;
+	byte3 = ROM[2 + (4*j)] << 8;
+	byte4 = ROM[3 + (4*j)];
 	total = (byte1 | byte2 | byte3 | byte4);
 	cout << "Value of the Data Stored: " << total << endl;
 	ROM_DUMPw << total << " " <<endl;
@@ -135,15 +104,8 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 	byte1 = 0;byte2 = 0;byte3 = 0;byte4 = 0;total = 0;
 	
 	}
-		
-		//byte1 = 0;byte2 = 0;byte3 = 0;byte4 = 0;total = 0;
-		//instruction_set.push_back(total);
-		//ROM_DUMPw<<ROM[d]<<ROM[d+1]<<ROM[d+2]<<ROM[d+3]<<endl;
 	
-	
-	
-	
-	
+	*/	
 	
 	bool running = true; // this bool will be the controller on running
 	
@@ -152,11 +114,12 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 	uint32_t prog_counter_next; //points to next instruction
 	
 	//ok, main loop
+	//CONVERT INTO A SWITCH CASE;
 	
 	while(running){
 		//default stuff
 		prog_counter_next = prog_counter +4; //default case, prog_counter_next could be updated further on
-		registers[0]=0; //just to make bloody sure
+		registers[0]=0; //Reset the register back 0;
 		
 		//HERE YOU CAN DO STUFF	
 	
@@ -166,7 +129,67 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 		execute
 		
 		*/	
-	
+		int32_t byte1 = 0,byte2 = 0 ,byte3 = 0,byte4 = 0,total = 0;
+		for (uint32_t j =0; j<no_inputs; j++){
+			byte1 = ROM[(4*j)] << 24;
+			byte2 = ROM[1 + (4*j)] << 16;
+			byte3 = ROM[2 + (4*j)] << 8;
+			byte4 = ROM[3 + (4*j)];
+			uint32_t test = (byte1 | byte2 | byte3 | byte4);
+			byte1 = 0;byte2 = 0;byte3 = 0;byte4 = 0;total = 0;
+			
+		
+		unsigned opcode = test >> 26;
+		// Print The OPCODE: cout << "The value of the opcode :" <<  opcode << endl;
+		
+		if (opcode == 0) {
+			cout << "R-types instructions need to implemented" << endl;
+			
+			unsigned reg1 = registers[((test >> 21) & 0x1f)];
+			unsigned reg2 = registers[((test >> 16) & 0x1f)];
+			uint32_t dest = ((test >> 11) & 0x1f);
+			unsigned shift = ((test >> 6) & 0x1f);
+			unsigned function = (test & 0x3f);
+
+
+			//cout << "The value of the Instruction :" << test << endl;
+			/*
+			cout << "The value of the Source1 :" << reg1 << endl;
+			cout << "The value of the Source2 :" << reg2 << endl;
+			cout << "The value of the dest :" << dest << endl;
+			cout << "The value of the shift :" << shift << endl;
+			cout << "The value of the function :" << function << endl;
+			This is a test for the information going in and out of the code;
+			*/ 
+			dest = r_type(reg1,reg2,shift,function);
+			
+			cout << "The value of the result :" << dest << endl;
+			
+			registers[3] = dest;
+			
+		if (opcode == 2 || opcode == 3) {
+			//J_type_function;
+			unsigned address  = (test & 0x03ffffff);
+			cout << "Jump and Jump Link need to implemented" << endl; 
+		}
+		else {
+			//I_type_function;
+			cout << "Load, Store and Memory functions need to be implmented" << endl; 
+			//Binary breakdown
+			unsigned source_register = registers[((test >> 21) & 0x1f)];
+			unsigned dest_register = registers[((test >> 16) & 0x1f)];
+			unsigned immediate_constant = (test & 0xffff);
+
+		}
+		}
+/*
+		
+			
+			
+		}
+		
+		
+	}
 	
 		//these things should happen at the end of every loop. 
 		//Think before you put new stuff after this point!
@@ -202,6 +225,7 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 	cout<<"End of current code"<<endl;
 	
 	return 0;
+}
 }
 
 

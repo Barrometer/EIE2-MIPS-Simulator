@@ -120,3 +120,52 @@ uint32_t registers[32] ={17, 53}; //Instantiate variables for memory
 */
 		
 	}
+
+
+More stuff we removed but Mayank is scared he can't rewrite
+
+/* Cheeky bit of testing for each byte;
+	for(int k = 0; k<i; k++){
+		printf ("0x%X\n", set[k]);
+	}
+	*/
+	
+	//cerr << "The value of i" << i <<endl;
+	int no_inputs = i/4;
+	/* - The testing into a test file
+	int32_t byte1 = 0,byte2 = 0 ,byte3 = 0,byte4 = 0,total = 0;
+
+	cerr<<"TEST OPERATION, DUMP ROM as bytes"<<endl;
+	ofstream ROM_DUMP;
+	ROM_DUMP.open("ROM_DUMP.txt");
+	// new indexer
+	for(uint32_t c =0; c<i;c++){
+		
+		cerr << "Outputting the value in a byte" << ROM[c] << endl;
+		ROM_DUMP<<ROM[c]<<endl;
+	}
+	ROM_DUMP.close();
+	cerr<<"TEST OPERATION, DUMP ROM as words"<<endl;
+	ofstream ROM_DUMPw;
+	ROM_DUMPw.open("ROM_DUMPw.txt");
+	
+	cerr << "Loop 2 Entered" << endl;
+	
+	for (int j =0; j <no_inputs; j++){ 
+	
+	// The process from combining the 4 char files into one single 32 bit number;
+	// The process of combining the bytes into a word;
+	
+	byte1 = ROM[(4*j)] << 24;
+	byte2 = ROM[1 + (4*j)] << 16;
+	byte3 = ROM[2 + (4*j)] << 8;
+	byte4 = ROM[3 + (4*j)];
+	total = (byte1 | byte2 | byte3 | byte4);
+	cerr << "Value of the Data Stored: " << total << endl;
+	ROM_DUMPw << total << " " <<endl;
+	//instruction_set.push_back(total);
+	byte1 = 0;byte2 = 0;byte3 = 0;byte4 = 0;total = 0;
+	
+	}
+	
+	*/	

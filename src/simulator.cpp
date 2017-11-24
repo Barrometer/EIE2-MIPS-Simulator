@@ -16,18 +16,26 @@ uint8_t ROM[16777216]={0};
 
 
 int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
+
+//expected example of running program from root ./bin/mips_simulator example.bin - this would run the program with no debugging
+//second example ./bin/mips_simulator example.bin debug - this would run the program with debug logging enabled
 	
 	//variables local to main
 	uint32_t registers[32] ={0};
-	//registers[1] = 5;
-	//registers[2] = 7;
+	bool debug_mode=false; // default case. If set to true, then debug logging enabled
  	// register 0 will always be 0. Add something to major loop enforcing this
 	
 	//Check for expected number of inputs
 	if(argc<2){
-		cout<<"Missing parameters"<<endl;
+		cerr<<"Missing parameters"<<endl;
 		exit(-21); //relevant exit code
 	}
+	//check whether debug time!
+	if(argc=="debug"){
+		debug_mode = true; //this boolean will be used to enable some debug features
+	}
+		
+	
 	
 	
 	//Get binary
@@ -36,7 +44,7 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 	
 	bin_in.open(argv[1]); //the first parameter will be name / location of bin
 	if(!(bin_in.is_open())){ //if not opened then return error
-		cout<<"Error, binary not found"<<endl; 
+		cerr<<"Error, binary not found"<<endl; 
 		exit(-21);//relevant exit code
 	}
 	
@@ -47,13 +55,13 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 	
 
 	while(bin_in.get(a)){
-		//cout<<"DEBUG, storing element "<<a<<" at ROM index "<<i<<endl;
+		//cerr<<"DEBUG, storing element "<<a<<" at ROM index "<<i<<endl;
 		ROM[i]=a;
-		//cout<<"DEBUG, ROM["<<i<<"] = "<<ROM[i]<<endl;
+		//cerr<<"DEBUG, ROM["<<i<<"] = "<<ROM[i]<<endl;
 	
 	i++;
 	if(i>(16777216)){//overflow case
-			cout<<"ERROR, binary is too large"<<endl;
+			cerr<<"ERROR, binary is too large"<<endl;
 			exit(-21);
 		}
 	}
@@ -61,51 +69,7 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 	bin_in.close();
 	// Uploading Binary Completed
 
-	/* Cheeky bit of testing for each byte;
-	for(int k = 0; k<i; k++){
-		printf ("0x%X\n", set[k]);
-	}
-	*/
 	
-	//cout << "The value of i" << i <<endl;
-	int no_inputs = i/4;
-	/* - The testing into a test file
-	int32_t byte1 = 0,byte2 = 0 ,byte3 = 0,byte4 = 0,total = 0;
-
-	cout<<"TEST OPERATION, DUMP ROM as bytes"<<endl;
-	ofstream ROM_DUMP;
-	ROM_DUMP.open("ROM_DUMP.txt");
-	// new indexer
-	for(uint32_t c =0; c<i;c++){
-		
-		cout << "Outputting the value in a byte" << ROM[c] << endl;
-		ROM_DUMP<<ROM[c]<<endl;
-	}
-	ROM_DUMP.close();
-	cout<<"TEST OPERATION, DUMP ROM as words"<<endl;
-	ofstream ROM_DUMPw;
-	ROM_DUMPw.open("ROM_DUMPw.txt");
-	
-	cout << "Loop 2 Entered" << endl;
-	
-	for (int j =0; j <no_inputs; j++){ 
-	
-	// The process from combining the 4 char files into one single 32 bit number;
-	// The process of combining the bytes into a word;
-	
-	byte1 = ROM[(4*j)] << 24;
-	byte2 = ROM[1 + (4*j)] << 16;
-	byte3 = ROM[2 + (4*j)] << 8;
-	byte4 = ROM[3 + (4*j)];
-	total = (byte1 | byte2 | byte3 | byte4);
-	cout << "Value of the Data Stored: " << total << endl;
-	ROM_DUMPw << total << " " <<endl;
-	//instruction_set.push_back(total);
-	byte1 = 0;byte2 = 0;byte3 = 0;byte4 = 0;total = 0;
-	
-	}
-	
-	*/	
 	
 	bool running = true; // this bool will be the controller on running
 	
@@ -129,7 +93,7 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 		execute
 		
 		*/	
-		int32_t byte1 = 0,byte2 = 0 ,byte3 = 0,byte4 = 0,total = 0;
+		int32_t byte1 = 0,byte2 = 0 ,byte3 = 0,byte4 = 0,total = 0; // Combines bytes into words. Implement as function as DT wants us to
 		for (uint32_t j =0; j<no_inputs; j++){
 			byte1 = ROM[(4*j)] << 24;
 			byte2 = ROM[1 + (4*j)] << 16;
@@ -140,10 +104,10 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 			
 		
 		unsigned opcode = test >> 26;
-		// Print The OPCODE: cout << "The value of the opcode :" <<  opcode << endl;
+		// Print The OPCODE: cerr << "The value of the opcode :" <<  opcode << endl;
 		
 		if (opcode == 0) {
-			cout << "R-types instructions need to implemented" << endl;
+			cerr << "R-types instructions need to fully implemented" << endl;
 			
 			unsigned reg1 = registers[((test >> 21) & 0x1f)];
 			unsigned reg2 = registers[((test >> 16) & 0x1f)];
@@ -152,29 +116,29 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 			unsigned function = (test & 0x3f);
 
 
-			//cout << "The value of the Instruction :" << test << endl;
+			//cerr << "The value of the Instruction :" << test << endl;
 			/*
-			cout << "The value of the Source1 :" << reg1 << endl;
-			cout << "The value of the Source2 :" << reg2 << endl;
-			cout << "The value of the dest :" << dest << endl;
-			cout << "The value of the shift :" << shift << endl;
-			cout << "The value of the function :" << function << endl;
+			cerr << "The value of the Source1 :" << reg1 << endl;
+			cerr << "The value of the Source2 :" << reg2 << endl;
+			cerr << "The value of the dest :" << dest << endl;
+			cerr << "The value of the shift :" << shift << endl;
+			cerr << "The value of the function :" << function << endl;
 			This is a test for the information going in and out of the code;
 			*/ 
 			dest = r_type(reg1,reg2,shift,function);
 			
-			cout << "The value of the result :" << dest << endl;
+			cerr << "The value of the result :" << dest << endl;
 			
-			registers[3] = dest;
+			//registers[3] = dest;
 			
 		if (opcode == 2 || opcode == 3) {
 			//J_type_function;
 			unsigned address  = (test & 0x03ffffff);
-			cout << "Jump and Jump Link need to implemented" << endl; 
+			cerr << "Jump and Jump Link need to implemented" << endl; 
 		}
 		else {
 			//I_type_function;
-			cout << "Load, Store and Memory functions need to be implmented" << endl; 
+			cerr << "Load, Store and Memory functions need to be implmented" << endl; 
 			//Binary breakdown
 			unsigned source_register = registers[((test >> 21) & 0x1f)];
 			unsigned dest_register = registers[((test >> 16) & 0x1f)];
@@ -204,27 +168,27 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 		
 		
 		//update program counter for next iteration of loop
-		cout<<"DEBUG, prog counter"<<endl;
-		cout<<prog_counter<<endl;
+		cerr<<"DEBUG, prog counter"<<endl;
+		cerr<<prog_counter<<endl;
 		
 		prog_counter = prog_counter_next;
 		
-		cout<<"DEBUG, prog counter updated"<<endl;
-		cout<<prog_counter<<endl;
+		cerr<<"DEBUG, prog counter updated"<<endl;
+		cerr<<prog_counter<<endl;
 		//prog_counter_next defaults to prog_counter+4, but could have been altered by instructions
 		
 		
 		
 		//now for some debug, remove as soon as stuff exists
-		cout<<"STUPID DEBUG, IF YOU SEE THIS THEN YOU LEFT THE LOOP YOU FOOL!"<<endl;
-		cout<<prog_counter<<endl;
-		cout<<prog_counter_next<<endl;
-		cout<<registers[0]<<endl;
-		cout<<"DEBUG LEAVE LOOP"<<endl;
+		cerr<<"Leaving Loop, showing some values"<<endl;
+		cerr<<prog_counter<<endl;
+		cerr<<prog_counter_next<<endl;
+		cerr<<registers[0]<<endl;
+		cerr<<"DEBUG LEAVE LOOP"<<endl;
 		running =false;
 	}
 	
-	cout<<"End of current code"<<endl;
+	cerr<<"End of current code"<<endl;
 	
 	return 0;
 }

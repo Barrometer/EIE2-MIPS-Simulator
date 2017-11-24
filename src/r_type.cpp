@@ -35,6 +35,53 @@ else if ( function == 43){ // SLTU - Set on Less Than Unsigned
 return (reg1 < reg2);
 }
 
+else if (function == 32){ // ADD - with overflow;
+	
+	uint32_t copy_reg1 = unsigned(reg1);
+	uint32_t copy_reg2 = unsigned(reg2);
+	int64_t test_overflow = 0;
+	int32_t test = 0;
+	test =  (uint64_t) copy_reg1 + (uint64_t) copy_reg2;
+	test_overflow = (uint64_t) copy_reg1 + (uint64_t) copy_reg2;
+	/* Checking the output works correctly
+	cout << "The value of register 1: " << reg1 << endl;
+	cout << "The value of register 2: " << reg2 << endl;
+	cout << "The value of 32 bits: " << test << endl;
+	cout << "The value of 64 bits: " << test_overflow << endl;
+	*/ 
+	if (test!=test_overflow){
+		//Flag an overflow.
+	}
+	else {
+		return test;
+	}
+}
+else if (function == 0){ // Shift Word Left Logical
+	return (reg2 << shift);
+
+}
+
+else if (function == 4){ // Shift Word Left Logical Variable
+	int8_t s = ((reg1 >> 21) & 0x1f);
+	temp = reg2 << s;
+	return temp;
+
+}
+else if (function == 3) // Shift Word Right Arithmetic
+{
+	return (reg2 >> shift); 
+}
+
+else if (function == 7) {// Shift Word Right Arithmetic Variable
+	int8_t s = ((reg1 >> 21) & 0x1f);
+	temp = reg2 >> s;
+	return temp;
+}
+else if (function == 2){
+	temp = reg2 >> shift;
+	return temp;
+} 
+
 }
 
 //void ADDU(int32_t reg1, int32_t reg2, int32_t dest);

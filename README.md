@@ -8,5 +8,6 @@ To compile the project from source provided use the make file provided and run "
 For DT:
 
 The project as current has a working input for binaries, working RAM and ROM, will recgonize the difference between r,i,j type instructions
-and execute addu, and, and or type instructions. There is no way of loading intermediate in - to test that these works you will have to hard set registers
-There are several .hpp files currently with minimal code in them, the interesting files are simulator.cpp and r_type.cpp
+and execute addu, and, xor, SLTU and or type instructions. There is no way of loading intermediate in - to test that these works you will have to hard set registers
+There are several .hpp files currently with minimal code in them, the interesting files are simulator.cpp and r_type.cpp. The files are currently launched through the cpp file and We have not been able to intergrate it with the makefile. It currently
+works by only using the simulator.cpp file

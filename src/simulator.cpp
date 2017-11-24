@@ -4,7 +4,7 @@
 #include <stdint.h> //Required for uint_t type
 #include <vector>
 #include "r_type.cpp"
-
+#include "i_type.cpp"
 using namespace std;
 
 //hideous global variable arrays
@@ -19,8 +19,8 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 	
 	//variables local to main
 	uint32_t registers[32] ={0};
-	registers[1] = 5;
-	registers[2] = 7;
+	//registers[1] = 5;
+	//registers[2] = 7;
  	// register 0 will always be 0. Add something to major loop enforcing this
 	
 	//Check for expected number of inputs
@@ -179,6 +179,8 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 			unsigned source_register = registers[((test >> 21) & 0x1f)];
 			unsigned dest_register = registers[((test >> 16) & 0x1f)];
 			unsigned immediate_constant = (test & 0xffff);
+			i_type(test,source_register,dest_register,immediate_constant);
+			
 
 		}
 		}

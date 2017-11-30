@@ -9,8 +9,9 @@ using namespace std;
 
 //hideous global variable arrays
 //these arrays are put as global as it means they will not overflow in the stack, as they are part of the heap
-uint8_t RAM[67108864]={0};
-uint8_t ROM[16777216]={0};
+extern uint8_t RAM[67108864]={0};
+extern uint8_t ROM[16777216]={0};
+extern uint32_t registers[32] ={0};
 //all elements are intitalised to zero
 //arrays contain bytes
 
@@ -18,7 +19,7 @@ uint8_t ROM[16777216]={0};
 int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 	
 	//variables local to main
-	uint32_t registers[32] ={0};
+	
 	//registers[1] = 5;
 	//registers[2] = 7;
  	// register 0 will always be 0. Add something to major loop enforcing this
@@ -164,8 +165,8 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 			dest = r_type(reg1,reg2,shift,function);
 			
 			cout << "The value of the result :" << dest << endl;
-			
-			registers[3] = dest;
+			// This is completely wrong..
+			//registers[3] = dest;
 			
 		if (opcode == 2 || opcode == 3) {
 			//J_type_function;

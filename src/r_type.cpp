@@ -87,7 +87,65 @@ int32_t r_type(int32_t reg1, int32_t reg2, int8_t shift, int8_t function){
 		int64_t	
 	*/
 	
-	else if(fucntion == 35)//subu, no overflow case
+	else if(function == 35){//subu, no overflow case
 		return(reg1-reg2);
+	}
 }
+int64_t r_type_long(int32_t reg1, int32_t reg2, int8_t shift, int8_t function){
+	int32_t HI,LO;
+	int64_t result;
+	uint32_t HIu, LOu, unsign_1, unsign_2; // registers 1 and 2 might need to be unsigned as might HI and LO
+	uint64_t resultu;
+	unsign_1 = unsigned(reg1);
+	unsign_2 = unsigned(reg2);
+	if(function ==26){ //div
+		LO = reg1/reg2; // LO is the quotient
+		HI = reg1%reg2; // HI is the remained / modulo
+		
+		result = LO <<32; // the upper half of the result should be LO
+		result =+ HI; // the lower half of the result should be HI
+		
+		return result;
+	}
+	
+	else if(function ==27){//divu
+		LOu = unsign_1/unsign_2; // LO is the quotient
+		HIu = unsign_1%unsign_2; // HI is the remained / modulo
+		
+		result = LOu <<32; // the upper half of the result should be LO
+		result =+ HIu; // the lower half of the result should be HI
+		
+		return result;
+	}
+	else if(function ==24){//mult
+		result = reg1*reg2;
+		return result;
+	}
+	else if(function == 25){//multu
+		resultu = unsign_1*unsign_2;
+		return resultu;
+	}
+}
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

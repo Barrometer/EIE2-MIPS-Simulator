@@ -8,7 +8,7 @@ using namespace std;
 
 
 int32_t r_type(int32_t reg1, int32_t reg2, int8_t shift, int8_t function){
-	
+	int32_t temp =0;
 	
 if (function == 33){ // ADDU - doesn't need to track overflow //
 return (reg1 + reg2);

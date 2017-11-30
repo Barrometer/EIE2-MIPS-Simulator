@@ -54,7 +54,7 @@ if (operation == 32){ // Load Byte
 		// Return an address error;	
 		}
 		else {	
-		dest_reg = RAM[address];
+		//dest_reg = RAM[address];
 		}
 		// Insert an check for outside of memory;
 		//dest_reg = RAM[];
@@ -69,7 +69,7 @@ if (operation == 36){ // Load Byte Unsigned
 		// Return an address error;	
 		}
 		else {	
-		dest_reg = RAM[address];
+		//dest_reg = RAM[address];
 		}
 		// Insert an check for outside of memory;
 		//dest_reg = RAM[];

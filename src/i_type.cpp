@@ -5,6 +5,8 @@
 
 using namespace std;
 //int32_t u32Int;
+extern uint8_t RAM[67108864];
+extern uint8_t ROM[16777216];
 
 
 void i_type(int8_t operation, int32_t source_reg, int32_t dest_reg, int32_t immediate){
@@ -17,7 +19,6 @@ void i_type(int8_t operation, int32_t source_reg, int32_t dest_reg, int32_t imme
 
 if (operation == 12){
 	dest_reg = source_reg & immediate;
-	
 }
 //ADDI
 if (operation == 8) {
@@ -54,7 +55,7 @@ if (operation == 32){ // Load Byte
 		// Return an address error;	
 		}
 		else {	
-		//dest_reg = RAM[address];
+		dest_reg = RAM[address];
 		}
 		// Insert an check for outside of memory;
 		//dest_reg = RAM[];
@@ -69,7 +70,7 @@ if (operation == 36){ // Load Byte Unsigned
 		// Return an address error;	
 		}
 		else {	
-		//dest_reg = RAM[address];
+		dest_reg = RAM[address];
 		}
 		// Insert an check for outside of memory;
 		//dest_reg = RAM[];
@@ -89,12 +90,9 @@ if (operation == 14){
 }
 
 if (operation == 15){ // Load Upper Immediate
-	
+	dest_reg = (immediate << 16);
 }
-
-
-
- }
+}
 
 
 //void ADDU(int32_t reg1, int32_t reg2, int32_t dest);

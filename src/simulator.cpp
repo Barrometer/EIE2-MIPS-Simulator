@@ -9,8 +9,8 @@ using namespace std;
 
 //hideous global variable arrays
 //these arrays are put as global as it means they will not overflow in the stack, as they are part of the heap
-extern uint8_t RAM[67108864]={0};
-extern uint8_t ROM[16777216]={0};
+uint8_t RAM[67108864]={0};
+uint8_t ROM[16777216]={0};
 //all elements are intitalised to zero
 //arrays contain bytes
 

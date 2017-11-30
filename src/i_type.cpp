@@ -50,6 +50,27 @@ if (operation == 32){ // Load Byte
 		// In this case our Immediate is our Offset.
 		// EXCEPTIONS : TLB Refill, TLB Invalid and Address Error.
 		int32_t address = source_reg + immediate;
+		if (address > 67108864){
+		// Return an address error;	
+		}
+		else {	
+		dest_reg = RAM[address];
+		}
+		// Insert an check for outside of memory;
+		//dest_reg = RAM[];
+		
+}
+
+if (operation == 36){ // Load Byte Unsigned
+		// In this case our Immediate is our Offset.
+		// EXCEPTIONS : TLB Refill, TLB Invalid and Address Error.
+		int32_t address = source_reg + immediate;
+		if (address > 67108864){
+		// Return an address error;	
+		}
+		else {	
+		dest_reg = RAM[address];
+		}
 		// Insert an check for outside of memory;
 		//dest_reg = RAM[];
 		
@@ -67,6 +88,9 @@ if (operation == 14){
 	dest_reg = immediate ^ source_reg;
 }
 
+if (operation == 15){ // Load Upper Immediate
+	
+}
 
 
 

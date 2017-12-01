@@ -81,26 +81,36 @@ int32_t r_type(int32_t reg1, int32_t reg2, int8_t shift, int8_t function){
 		temp = reg2 >> shift;
 		return temp;
 	} 
-	/*else if (function == 34){ // sub, signed and thus overflow
-		uint32_t unsign_reg_1 = unsigned(reg1);
-		uint32_t unsign_reg_2 = unsigned(reg2);
-		int64_t	
-	*/
+	else if (function == 34){ // sub, signed and thus overflow
+		int32_t result;
+		//check for overflow
+		if(reg1<0){
+			if(reg1<(reg2+INT32_MIN)){//bad, overflow case
+				exit(-10); // exit program with correct error code
+			}
+		}
+		else if (reg1>=0){
+			if(reg1>(INT32_MAX+reg2)// bad, overflow case
+				exit(-10);
+			}
+		}
+		return (reg1-reg2); //will only reach this point if no overflow
+	}
 	
 	else if(function == 35){//subu, no overflow case
-		return(reg1-reg2);
+		return(reg1-reg2); // no need to check for overflow
 	}
 }
 int64_t r_type_long(int32_t reg1, int32_t reg2, int8_t shift, int8_t function){
-	int32_t HI,LO;
+	int32_t LO;
 	int64_t result;
-	uint32_t HIu, LOu, unsign_1, unsign_2; // registers 1 and 2 might need to be unsigned as might HI and LO
+	uint32_t HIu, LOu, reg1u, reg2u; // registers 1 and 2 might need to be unsigned as might HI and LO
 	uint64_t resultu;
-	unsign_1 = unsigned(reg1);
-	unsign_2 = unsigned(reg2);
+	reg1u= unsigned(reg1);
+	reg2u = unsigned(reg2);
 	if(function ==26){ //div
 		LO = reg1/reg2; // LO is the quotient
-		HI = reg1%reg2; // HI is the remained / modulo
+		HIu = reg1u%reg2u; // HI is the remainder / modulo and is always unsigned
 		
 		result = LO <<32; // the upper half of the result should be LO
 		result =+ HI; // the lower half of the result should be HI
@@ -109,8 +119,8 @@ int64_t r_type_long(int32_t reg1, int32_t reg2, int8_t shift, int8_t function){
 	}
 	
 	else if(function ==27){//divu
-		LOu = unsign_1/unsign_2; // LO is the quotient
-		HIu = unsign_1%unsign_2; // HI is the remained / modulo
+		LOu = reg1u/reg2u; // LO is the quotient
+		HIu = reg1u%reg2u; // HI is the remained / modulo
 		
 		result = LOu <<32; // the upper half of the result should be LO
 		result =+ HIu; // the lower half of the result should be HI
@@ -122,7 +132,7 @@ int64_t r_type_long(int32_t reg1, int32_t reg2, int8_t shift, int8_t function){
 		return result;
 	}
 	else if(function == 25){//multu
-		resultu = unsign_1*unsign_2;
+		resultu = reg1u*reg2u;
 		return resultu;
 	}
 }

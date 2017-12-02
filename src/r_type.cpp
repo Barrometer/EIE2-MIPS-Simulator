@@ -90,7 +90,7 @@ int32_t r_type(int32_t reg1, int32_t reg2, int8_t shift, int8_t function){
 			}
 		}
 		else if (reg1>=0){
-			if(reg1>(INT32_MAX+reg2)// bad, overflow case
+			if(reg1>(INT32_MAX+reg2)){// bad, overflow case
 				exit(-10);
 			}
 		}
@@ -104,7 +104,7 @@ int32_t r_type(int32_t reg1, int32_t reg2, int8_t shift, int8_t function){
 int64_t r_type_long(int32_t reg1, int32_t reg2, int8_t shift, int8_t function){
 	int32_t LO;
 	int64_t result;
-	uint32_t HIu, LOu, reg1u, reg2u; // registers 1 and 2 might need to be unsigned as might HI and LO
+	uint32_t HIu, LOu, reg1u, reg2u; // registers 1 and 2 might need to be unsigned as LO. HI contains quotient, is always unsigned
 	uint64_t resultu;
 	reg1u= unsigned(reg1);
 	reg2u = unsigned(reg2);
@@ -113,7 +113,7 @@ int64_t r_type_long(int32_t reg1, int32_t reg2, int8_t shift, int8_t function){
 		HIu = reg1u%reg2u; // HI is the remainder / modulo and is always unsigned
 		
 		result = LO <<32; // the upper half of the result should be LO
-		result =+ HI; // the lower half of the result should be HI
+		result =+ HIu; // the lower half of the result should be HI
 		
 		return result;
 	}

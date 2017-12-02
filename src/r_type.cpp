@@ -101,7 +101,7 @@ int32_t r_type(int32_t reg1, int32_t reg2, int8_t shift, int8_t function){
 		return(reg1-reg2); // no need to check for overflow
 	}
 }
-int64_t r_type_long(int32_t reg1, int32_t reg2, int8_t shift, int8_t function){
+int64_t r_type_long(int32_t reg1, int32_t reg2, int8_t function){
 	int32_t LO;
 	int64_t result;
 	uint32_t HIu, LOu, reg1u, reg2u; // registers 1 and 2 might need to be unsigned as LO. HI contains quotient, is always unsigned

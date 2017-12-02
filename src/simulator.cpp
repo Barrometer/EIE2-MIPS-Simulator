@@ -22,9 +22,15 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 	
 	//variables local to main
 	uint32_t registers[32] ={0};
-	bool debug_mode=false; // default case. If set to true, then debug logging enabled
- 	// register 0 will always be 0. Add something to major loop enforcing this
+	uint32_t reg_HI, reg_LO;
+	reg_HI = 0;
+	reg_LO =0;
+	//32 general purpose registers, each of which is 32bit wide. Then two additional special registers
+	// register 0 will always be 0. Add something to major loop enforcing this
 	
+	bool debug_mode=false; // default case. If set to true, then debug logging enabled
+ 	
+
 	//Check for expected number of inputs
 	if(argc<2){
 		cerr<<"Missing parameters"<<endl;
@@ -94,14 +100,16 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 		
 		*/	
 		int32_t byte1 = 0,byte2 = 0 ,byte3 = 0,byte4 = 0,total = 0; // Combines bytes into words. Implement as function as DT wants us to
-		for (uint32_t j =0; j<no_inputs; j++){
+		/*for (uint32_t j =0; j<no_inputs; j++){
 			byte1 = ROM[(4*j)] << 24;
 			byte2 = ROM[1 + (4*j)] << 16;
 			byte3 = ROM[2 + (4*j)] << 8;
 			byte4 = ROM[3 + (4*j)];
 			uint32_t test = (byte1 | byte2 | byte3 | byte4);
 			byte1 = 0;byte2 = 0;byte3 = 0;byte4 = 0;total = 0;
-			
+		*/	
+		
+		//THIS SHOULDN'T BE DONE AS A FOR LOOP! I will write a function doing this as I want to
 		
 		unsigned opcode = test >> 26;
 		// Print The OPCODE: cerr << "The value of the opcode :" <<  opcode << endl;
@@ -115,23 +123,14 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 			unsigned shift = ((test >> 6) & 0x1f);
 			unsigned function = (test & 0x3f);
 
-
-			//cerr << "The value of the Instruction :" << test << endl;
-			/*
-			cerr << "The value of the Source1 :" << reg1 << endl;
-			cerr << "The value of the Source2 :" << reg2 << endl;
-			cerr << "The value of the dest :" << dest << endl;
-			cerr << "The value of the shift :" << shift << endl;
-			cerr << "The value of the function :" << function << endl;
-			This is a test for the information going in and out of the code;
-			*/ 
+ 
 			dest = r_type(reg1,reg2,shift,function);
 			
 			cerr << "The value of the result :" << dest << endl;
-			
+		}	
 			//registers[3] = dest;
 			
-		if (opcode == 2 || opcode == 3) {
+		else if (opcode == 2 || opcode == 3) {
 			//J_type_function;
 			unsigned address  = (test & 0x03ffffff);
 			cerr << "Jump and Jump Link need to implemented" << endl; 
@@ -144,18 +143,11 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 			unsigned dest_register = registers[((test >> 16) & 0x1f)];
 			unsigned immediate_constant = (test & 0xffff);
 			i_type(test,source_register,dest_register,immediate_constant);
-			
+		}	
 
-		}
-		}
+		
 /*
-		
-			
-			
-		}
-		
-		
-	}
+
 	
 		//these things should happen at the end of every loop. 
 		//Think before you put new stuff after this point!

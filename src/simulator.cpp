@@ -97,6 +97,24 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 	uint32_t prog_counter =0x10000000; // points to address ADDR_INSTR using its "actual" memory location
 	uint32_t prog_counter_next; //points to next instruction
 	
+	bool do_jump = false; // set to true when a branch or jump instruction is called
+	bool jumping_time = false; // set to true at the start of the main loop if above was true
+	uint32_t jump_address=0; // contains address of jump
+	
+	/*
+	Implementation of jumps + delayed jump slot. When an instruction would cause program to jump / branch, this requires the branch to occur after
+	the next instruction is executed. For instance in psuedo code
+	
+	5. JUMP 20
+	6. Do something
+	
+	would execute as do something, jump 20
+	
+	To implement this all functions that alter the program counter actually just raise a flag that is checked on the next loop, and then at the end
+	of the next loop the program counter is changed.
+	
+	*/
+	
 	//ok, main loop
 	
 	while(running){
@@ -104,6 +122,11 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 		prog_counter_next = prog_counter +4; //default case, prog_counter_next could be updated further on
 		registers[0]=0; //Reset the register back 0;
 		
+		
+		if(do_jump){ // defaults to false. Set true if last instruction was a j_type or some sort of branch
+			do_jump = false;
+			jumping_time = true;
+		}
 		//HERE YOU CAN DO STUFF	
 	
 		/*
@@ -157,7 +180,7 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 		if(debug_mode){
 			cerr<<"Function value is "<<function<<endl;
 		}
-		if (opcode == 0) {
+		if ((opcode == 0)&&((function!=9)||(function!=8))) { // rather annoyingly, JR and JALR use opcode = 0, but are handeled seperately
 		
 		
 			if(debug_mode){
@@ -218,10 +241,44 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 		}	
 
 			
-		else if (opcode == 2 || opcode == 3) {
+		else if ((opcode == 2 || opcode == 3)||((opcode==0)&&(function==9)||(function==8))) {// rather annoyingly, JR and JALR use opcode = 0,
 			//J_type_function;
-			unsigned address  = (instruction & 0x03ffffff);
 			cerr << "J types need implementing" << endl; 
+			
+			if(opcode==2){
+				if(debug_mode){
+					cerr<<"This is the jump instruction"<<endl;
+				}
+				
+				//do jump
+			}
+			
+			else if(opcode==3){
+				if(debug_mode){
+					cerr<<"This is the jump and link instruction"<<endl;
+				}
+				
+				//do jump and link
+			}
+			
+			else if((opcode==0)&&(function==9)){
+			if(debug_mode){
+					cerr<<"This is the jump and link register instruction"<<endl;
+				}
+				
+				//do jump and link register
+			}
+			
+			else if((opcode==0)&&(function==8)){
+			if(debug_mode){
+					cerr<<"This is the jump register instruction"<<endl;
+				}
+				
+				//do jump register
+			}
+			else{ // exception
+				exit(-20);//internal error
+			}
 		}
 		else {
 			//I_type_function;
@@ -234,7 +291,7 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 		}	
 
 		
-/*
+
 
 	
 		//these things should happen at the end of every loop. 
@@ -242,6 +299,7 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 		
 		
 		//register 0 should always be zero
+	
 		registers[0]=0; 
 		/*there are other ways of doing this, and we should probably code all functions to not update reg 0 with the result of an operation, but this is a good check
 		*/
@@ -249,17 +307,25 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 		
 		//update program counter for next iteration of loop
 		if(debug_mode){
-			cerr<<"DEBUG, prog counter"<<endl;
+			cerr<<"DEBUG, prog counter (not considering whether last instruction was jump)"<<endl;
 			cerr<<prog_counter<<endl;
 		}
 		
 		prog_counter = prog_counter_next;
 		
+		if(jumping_time){ // lo and behold, previous instruction was actually a jump!!
+			if(debug_mode){
+				cerr<<"DEBUG - Shock twist, last instruction was a jump. Jumping to address "<<jump_address<<endl;
+				
+			}
+			prog_counter = jump_address;
+			jumping_time=false;
+		}
 		if(debug_mode){
 			cerr<<"DEBUG, prog counter updated"<<endl;
 			cerr<<prog_counter<<endl;
 		}
-		//prog_counter_next defaults to prog_counter+4, but could have been altered by instructions
+
 		
 		
 		

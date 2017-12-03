@@ -153,7 +153,10 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 		if(debug_mode){
 			cerr<<"Opcode value is "<<opcode<<endl;
 		}
-		
+		unsigned function = (instruction & 0x3f);
+		if(debug_mode){
+			cerr<<"Function value is "<<function<<endl;
+		}
 		if (opcode == 0) {
 		
 		
@@ -166,7 +169,7 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 			unsigned reg2 = registers[((instruction >> 16) & 0x1f)];
 			uint32_t dest = ((instruction >> 11) & 0x1f);
 			unsigned shift = ((instruction >> 6) & 0x1f);
-			unsigned function = (instruction & 0x3f);
+			
 			
 			if((function ==24)||(function==25)||(function==26)||(function==27)){ 	// these are the function codes for div, divu, mult, multu.
 																					// they are special because they return 64bit results
@@ -218,7 +221,7 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 		else if (opcode == 2 || opcode == 3) {
 			//J_type_function;
 			unsigned address  = (instruction & 0x03ffffff);
-			cerr << "Jump and Jump Link need to implemented" << endl; 
+			cerr << "J types need implementing" << endl; 
 		}
 		else {
 			//I_type_function;

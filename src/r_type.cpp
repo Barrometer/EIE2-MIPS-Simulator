@@ -109,6 +109,14 @@ int64_t r_type_long(int32_t reg1, int32_t reg2, int8_t function){
 	reg1u= unsigned(reg1);
 	reg2u = unsigned(reg2);
 	if(function ==26){ //div
+	
+		//divide by 0 is undefined
+		//define result of divide by 0 as 0
+		
+		if(reg2==0){
+			return 0;
+		}	
+	
 		LO = reg1/reg2; // LO is the quotient
 		HIu = reg1u%reg2u; // HI is the remainder / modulo and is always unsigned
 		
@@ -119,6 +127,14 @@ int64_t r_type_long(int32_t reg1, int32_t reg2, int8_t function){
 	}
 	
 	else if(function ==27){//divu
+	
+		//divide by 0 is undefined
+		//define result of divide by 0 as 0
+		
+		if(reg2==0){
+			return 0;
+		}	
+		
 		LOu = reg1u/reg2u; // LO is the quotient
 		HIu = reg1u%reg2u; // HI is the remained / modulo
 		

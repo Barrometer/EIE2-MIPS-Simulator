@@ -244,13 +244,22 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 		else if ((opcode == 2 || opcode == 3)||((opcode==0)&&(function==9)||(function==8))) {// rather annoyingly, JR and JALR use opcode = 0,
 			//J_type_function;
 			cerr << "J types need implementing" << endl; 
+			int32_t inst_index = instruction & 0x3FFFFFF;
+			int32_t rs = registers[((instruction >> 21) & 0x1f)]; // this is the register telling you where to jump to for the next two instructions
+			int32_t rd = ((instruction >> 11) & 0x1f); // needed for JALR
+			if(debug_mode){
+				cerr<<"Inst_index is "<<inst_index<<endl;
+			}
+			
 			
 			if(opcode==2){
 				if(debug_mode){
-					cerr<<"This is the jump instruction"<<endl;
+					cerr<<"This is a jump instruction"<<endl;
 				}
 				
-				//do jump
+				do_jump = true; // update flag 1, as jump will happen on next instruction
+				jump_address = (prog_counter_next & 0xF0000000); // upper 4 bits are from the instruction in branch delay slot
+				jump_address =+ (inst_index<<2); // remaining bits are the 26 bits of instr_index but left shift 2
 			}
 			
 			else if(opcode==3){
@@ -258,26 +267,34 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 					cerr<<"This is the jump and link instruction"<<endl;
 				}
 				
-				//do jump and link
+				registers[31] = prog_counter+8; // return address to reg[31], is instruction after delay instruction
+				do_jump = true; // update flag 1, as jump will happen on next instruction
+				jump_address = (prog_counter_next & 0xF0000000); // upper 4 bits are from the instruction in branch delay slot
+				jump_address =+ (inst_index<<2); // remaining bits are the 26 bits of instr_index but left shift 2
 			}
 			
 			else if((opcode==0)&&(function==9)){
-			if(debug_mode){
+				if(debug_mode){
 					cerr<<"This is the jump and link register instruction"<<endl;
 				}
 				
-				//do jump and link register
+				do_jump = true; // update flag 1, as jump will happen on next instruction
+				jump_address = rs;
+				registers[rd] =(prog_counter+8); // register rd contains return address
 			}
 			
 			else if((opcode==0)&&(function==8)){
-			if(debug_mode){
+				if(debug_mode){
 					cerr<<"This is the jump register instruction"<<endl;
 				}
 				
-				//do jump register
+				do_jump = true; // update flag 1, as jump will happen on next instruction
+			
+				jump_address = rs;
+
 			}
 			else{ // exception
-				exit(-20);//internal error
+				exit(-20);//internal error, just catching anything that might be a fuck up
 			}
 		}
 		else {

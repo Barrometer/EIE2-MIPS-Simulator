@@ -15,11 +15,11 @@ uint8_t ROM[16777216]={0};
 //arrays contain bytes
 
 //function to take 4 bytes and produce a word
-int32_t fetch_function(int8_t byte0, int8_t byte1, int8_t byte2, int8_t byte3){
-	int32_t result = byte0<<24;
-	result += byte1<<16;
-	result += byte2<<8;
-	result += byte3;
+int32_t fetch_function(int32_t functional_counter){
+	int32_t result = ROM[functional_counter+0]<<24;
+	result += ROM[functional_counter+1]<<16;
+	result += ROM[functional_counter+2]<<8;
+	result += ROM[functional_counter+3];
 	
 	return result; // result looks like byte0|byte1|byte2|byte3
 	
@@ -126,11 +126,8 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 				cerr<<"Program is fetching instruction from ROM at address "<<prog_counter<<" which corresponds to the bytes starting at "<<functional_counter<<" of the ROM"<<endl;
 			}
 			
-			byte0 = ROM[functional_counter+0];
-			byte1 = ROM[functional_counter+1];
-			byte2 = ROM[functional_counter+2];
-			byte3 = ROM[functional_counter+3];
-			instruction = fetch_function(byte0, byte1,  byte2,  byte3);
+			
+			instruction = fetch_function(functional_counter);
 			
 			if(debug_mode){
 				cerr<<"DEBUG - value of instruction is "<<instruction<<endl;

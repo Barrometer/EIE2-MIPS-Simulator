@@ -182,6 +182,21 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 		}
 		if ((opcode == 0)&&((function!=9)||(function!=8))) { // rather annoyingly, JR and JALR use opcode = 0, but are handeled seperately
 		
+		// EDWARD COULD YOU LOOK AT THESE AND IMPLEMENT THEM, JUST CONNECTING THEM TO YOUR REGISTERS
+		/* ALL of these need to be implement in simulator.cpp
+		else if (function == 16){ // Move to HI Register
+			return Hi_Reg; /// The HI to needs to be instantiated and monitored for both MFHI functions
+		}
+		else if (function == 18){ // Move from HI Register
+			return Lo_Reg; /// The LO Register needs to be instantiated and monitored for both MFHI functions
+		}
+		else if (function == 17)){ // Move to HI register 
+			
+		}
+		else if (function == 19) { // Move to LO register
+			
+		}
+		} */ 
 		
 			if(debug_mode){
 				cerr << "R-types instructions need to fully implemented - missing branches" << endl;

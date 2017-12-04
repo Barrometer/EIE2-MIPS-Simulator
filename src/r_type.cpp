@@ -118,17 +118,6 @@ int32_t r_type(int32_t reg1, int32_t reg2, int8_t shift, int8_t function){
 	else if(function == 35){//subu, no overflow case
 		return(reg1-reg2); // no need to check for overflow
 	}
-	/* ALL of these need to be implement in simulator.cpp
-	else if (function == 16){ // Move to HI Register
-		return Hi_Reg; /// The HI to needs to be instantiated and monitored for both MFHI functions
-	}
-	else if (function == 18){ // Move from HI Register
-		return Lo_Reg; /// The LO Register needs to be instantiated and monitored for both MFHI functions
-	}
-	else if (function == 17)){ // Move to HI register 
-		
-		
-	} */ 
 	else if (function == 42){
 		return (reg1 < reg2);
 	}

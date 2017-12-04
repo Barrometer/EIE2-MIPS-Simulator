@@ -16,7 +16,7 @@ void i_type(int8_t operation, int32_t source_reg, int32_t dest_reg, int32_t imme
 	cout << "The value of the Immediate code :" << immediate << endl;
 
 // ANDI Instruction
-
+uint32_t temp;
 if (operation == 12){
 	dest_reg = source_reg & immediate;
 }
@@ -75,7 +75,7 @@ if (operation == 36){ // Load Byte Unsigned
 		// Insert an check for outside of memory;
 		//dest_reg = RAM[];
 		
-}
+} /// NEED TO CHECK ALL OF THESE
 //ANDI
 if (operation == 12){
 	dest_reg = immediate & source_reg;
@@ -90,9 +90,58 @@ if (operation == 14){
 }
 
 if (operation == 15){ // Load Upper Immediate
-	dest_reg = (immediate << 16);
+	temp = (immediate << 16);
+	temp = temp & 0xFFFF0000;
+	dest_reg = temp;
+	
+}
+// Error check for address on the next 3 instructions
+if (operation == 35){ // Load Word 
+	int32_t address = (source_reg + immediate)*4 // Since we have split the memory into from 32 bits to 8 bits;
+	if (address > 67108864){
+		// Return an address error;	
+		}
+		else {	
+	
+	int32_t result = RAM[address+0]<<24;
+	result += RAM[address+1]<<16;
+	result += RAM[address+2]<<8;
+	result += RAM[address+3];
+		}
+}
+if (operation == 40){ // Store Byte
+	int32_t address = (source_reg + immediate)*4;
+	if (address > 67108864){
+		// Return an address error;	
+		}
+		else {	
+	
+	RAM[address] = dest_reg;
 }
 }
+
+if (operation == 43){
+int32_t address = (source_reg + immediate)*4;
+
+if (address > 67108864){
+		// Return an address error;	
+		}
+		else {	
+	RAM[address+0] = ((dest_reg >> 24) & 0xff);
+	RAM[address+1] = ((dest_reg >> 16) & 0xff);
+	RAM[address+2] = ((dest_reg >> 8) & 0xff);
+	RAM[address+3] = ((dest_reg) & 0xff);
+		}
+}
+if (operation == 10){ // SLTI
+	int16_t temp = immediate;
+	dest_reg = source_reg < temp;
+}
+if (operation == 11){ // SLTIU
+	uint16_t temp = immediate;
+	dest_reg = source_reg < temp;
+}
+
 
 
 //void ADDU(int32_t reg1, int32_t reg2, int32_t dest);

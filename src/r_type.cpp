@@ -5,7 +5,8 @@
 
 using namespace std;
 //int32_t u32Int;
-
+extern uint8_t RAM[67108864];
+extern uint8_t ROM[16777216];
 
 int32_t r_type(int32_t reg1, int32_t reg2, int8_t shift, int8_t function){
 	int32_t temp =0;
@@ -67,6 +68,19 @@ int32_t r_type(int32_t reg1, int32_t reg2, int8_t shift, int8_t function){
 		return temp;
 
 	}
+	else if (function == 2){ // Logical Word Right Shift
+		uint32_t temp = reg2;
+		temp = temp >> shift;
+		return temp;
+
+	}
+	else if (function == 6){ // Shift Word Right Logical Variable
+		uint32_t temp = reg2;
+		int8_t s = ((reg1 >> 21) & 0x1f);
+		temp = temp >> s;
+		return temp;
+		
+	}
 	else if (function == 3) // Shift Word Right Arithmetic
 	{
 		return (reg2 >> shift); 
@@ -81,6 +95,10 @@ int32_t r_type(int32_t reg1, int32_t reg2, int8_t shift, int8_t function){
 		temp = reg2 >> shift;
 		return temp;
 	} 
+	
+	else if (function == 40){
+		temp = im
+	}
 	else if (function == 34){ // sub, signed and thus overflow
 		int32_t result;
 		//check for overflow
@@ -100,6 +118,26 @@ int32_t r_type(int32_t reg1, int32_t reg2, int8_t shift, int8_t function){
 	else if(function == 35){//subu, no overflow case
 		return(reg1-reg2); // no need to check for overflow
 	}
+	/* ALL of these need to be implement in simulator.cpp
+	else if (function == 16){ // Move to HI Register
+		return Hi_Reg; /// The HI to needs to be instantiated and monitored for both MFHI functions
+	}
+	else if (function == 18){ // Move from HI Register
+		return Lo_Reg; /// The LO Register needs to be instantiated and monitored for both MFHI functions
+	}
+	else if (function == 17)){ // Move to HI register 
+		
+		
+	} */ 
+	else if (function == 42){
+		return (reg1 < reg2);
+	}
+	else if (function == 43){
+		uint32_t temp1 = reg1;
+		uint32_t temp2 = reg2;
+		return temp1 < temp2;
+	}
+	
 }
 int64_t r_type_long(int32_t reg1, int32_t reg2, int8_t function){
 	int32_t LO;

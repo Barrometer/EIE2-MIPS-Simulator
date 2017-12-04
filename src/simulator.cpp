@@ -185,7 +185,7 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 				cerr<<"DEBUG - NOP"<<endl;
 			}
 		}
-		
+		//R-types
 		else if ((opcode == 0)&&((function!=9)||(function!=8))) { // rather annoyingly, JR and JALR use opcode = 0, but are handeled seperately
 		
 		
@@ -253,7 +253,7 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 		 
 			else{ // if not multiply or divide or move from hi type stuff
 			
- 				int32_t result =r_type(reg1,reg2,shift,function);
+ 				int32_t result =r_type(reg1,reg2,shift,function); // this is just a good old happy normal r type
 			
 				if(debug_mode){
 					cerr << "The value of the operation is " << result << endl;
@@ -262,13 +262,17 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 			}
 		}	
 
-			
-		else if ((opcode == 2 || opcode == 3)||((opcode==0)&&(function==9)||(function==8))) {// rather annoyingly, JR and JALR use opcode = 0,
+		// J - types	AND branches
+		else if ((opcode == 2 || opcode == 3||opcode==1)||((opcode==0)&&(function==9)||(function==8))||((opcode>=4)&&(opcode<=7))) {// rather annoyingly, JR and JALR use opcode = 0. If opcode is between 4 and 7 its a branch type. If opcode is 1 it is one of several branches determined by reg2 of all things
 			//J_type_function;
-			cerr << "J types need implementing" << endl; 
+			cerr << "J types and branches need implementing" << endl; 
 			int32_t inst_index = instruction & 0x3FFFFFF;
 			int32_t rs = registers[((instruction >> 21) & 0x1f)]; // this is the register telling you where to jump to for the next two instructions
+			int32_t rt =registers[((instruction >> 16) & 0x1f)]; // needed for some branch instructions
+			
 			int32_t rd = ((instruction >> 11) & 0x1f); // needed for JALR
+			
+			int32_t offset = (instruction &0xFFFF);
 			if(debug_mode){
 				cerr<<"Inst_index is "<<inst_index<<endl;
 			}
@@ -315,12 +319,173 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 				jump_address = rs;
 
 			}
+			
+			else if(opcode==4){ //BEQ
+				if(debug_mode){
+				
+					cerr<<"This is the BEQ instruction"<<endl;
+				}
+				// branch if rs= rt
+				
+				if(rs==rt){
+					if(debug_mode){
+						cerr<<"DEBUG - rs == rt, branching"<<endl;
+					}
+					
+					do_jump=true; //update flag 1, as jump will happen on next instruction
+					
+					//calculate jump address
+					jump_address = (prog_counter_next+(offset<2));
+				}	
+				
+			}
+			
+			else if(opcode==5){ //BNE
+				if(debug_mode){
+				
+					cerr<<"This is the BNE instruction"<<endl;
+				}
+				// branch if rs!= rt
+				
+				if(rs!=rt){
+					if(debug_mode){
+						cerr<<"DEBUG - rs != rt, branching"<<endl;
+					}
+					do_jump=true; //update flag 1, as jump will happen on next instruction
+					
+					//calculate jump address
+					jump_address = (prog_counter_next+(offset<2));
+				}
+				
+			}
+			
+			else if(opcode==6){ //BLEZ
+				if(debug_mode){
+				
+					cerr<<"This is the BLEZ instruction"<<endl;
+				}
+				// branch if rs<=0
+				
+				if(rs<=0){
+					if(debug_mode){
+						cerr<<"DEBUG - rs <=0, branching"<<endl;
+					}
+					do_jump=true; //update flag 1, as jump will happen on next instruction
+					
+					//calculate jump address
+					jump_address = (prog_counter_next+(offset<2));
+				}
+				
+			}
+			
+			else if(opcode==7){ //BGTZ
+				if(debug_mode){
+				
+					cerr<<"This is the BGTZ instruction"<<endl;
+				}
+				// branch if rs>0
+				
+				if(rs>0){
+					if(debug_mode){
+						cerr<<"DEBUG - rs >0 branching"<<endl;
+					}
+					do_jump=true; //update flag 1, as jump will happen on next instruction
+					
+					//calculate jump address
+					jump_address = (prog_counter_next+(offset<2));
+				}
+				
+			}
+			else if(opcode==1){//stupid branches sharing opcode
+				if(rt==1){ // this is BGEZ
+					if(debug_mode){
+						cerr<<"Instruction is BGEZ"<<endl;
+					}
+					
+					//branch if rs >=0
+					
+					if(rs>=0){
+						if(debug_mode){
+							cerr<<"DEBUG rs >=0, branching"<<endl;
+						}
+						do_jump = true;//update flag 1, as jump will happen on next instruction
+						//calculate jump address
+						jump_address = (prog_counter_next+(offset<2));
+					}
+				
+				
+				}
+				else if(rt==17){ // this is BGEZAL
+					if(debug_mode){
+						cerr<<"Instruction is BGEZAL"<<endl;
+					}
+					
+					//branch if rs >=0
+					
+					if(rs>=0){
+						if(debug_mode){
+							cerr<<"DEBUG rs >=0, branching and linking"<<endl;
+						}
+						do_jump = true;//update flag 1, as jump will happen on next instruction
+						//calculate jump address
+						jump_address = (prog_counter_next+(offset<2));
+						
+						//link
+						registers[31] = prog_counter+8; // return address
+					}
+				
+				
+				}
+				
+				else if(rt==0){ // this is BLTZ
+					if(debug_mode){
+						cerr<<"Instruction is BLTZ"<<endl;
+					}
+					
+					//branch if rs <0
+					
+					if(rs<0){
+						if(debug_mode){
+							cerr<<"DEBUG rs <0, branching"<<endl;
+						}
+						do_jump = true;//update flag 1, as jump will happen on next instruction
+						//calculate jump address
+						jump_address = (prog_counter_next+(offset<2));
+					}
+				
+				
+				}
+				else if(rt==16){ // this is BLTZAL
+					if(debug_mode){
+						cerr<<"Instruction is BLTZAL"<<endl;
+					}
+					
+					//branch if rs <0
+					
+					if(rs<0){
+						if(debug_mode){
+							cerr<<"DEBUG rs <0, branching"<<endl;
+						}
+						do_jump = true;//update flag 1, as jump will happen on next instruction
+						//calculate jump address
+						jump_address = (prog_counter_next+(offset<2));
+						
+						//link
+						registers[31] = prog_counter+8; // return address
+					}
+				
+				
+				}
+				else{ // exception
+					exit(-12); // exit with invalid instruction
+				}
+			}
 			else{ // exception
-				exit(-20);//internal error, just catching anything that might be a fuck up
+				exit(-12);//invalid instruction, just catching anything that might be a mistake
 			}
 		}
 		else {
-			//I_type_function;
+			//Misc I_type_function;
 			cerr << "Load, Store and Memory functions need to be implmented" << endl; 
 			//Binary breakdown
 			unsigned source_register = registers[((instruction >> 21) & 0x1f)];

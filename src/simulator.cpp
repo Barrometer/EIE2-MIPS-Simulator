@@ -180,7 +180,13 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 		if(debug_mode){
 			cerr<<"Function value is "<<function<<endl;
 		}
-		if ((opcode == 0)&&((function!=9)||(function!=8))) { // rather annoyingly, JR and JALR use opcode = 0, but are handeled seperately
+		if(instruction == 0){ // this is the no_op case
+			if(debug_mode){
+				cerr<<"DEBUG - NOP"<<endl;
+			}
+		}
+		
+		else if ((opcode == 0)&&((function!=9)||(function!=8))) { // rather annoyingly, JR and JALR use opcode = 0, but are handeled seperately
 		
 		
 		

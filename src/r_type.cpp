@@ -96,9 +96,6 @@ int32_t r_type(int32_t reg1, int32_t reg2, int8_t shift, int8_t function){
 		return temp;
 	} 
 	
-	else if (function == 40){
-		temp = im
-	}
 	else if (function == 34){ // sub, signed and thus overflow
 		int32_t result;
 		//check for overflow

@@ -9,7 +9,7 @@ extern uint8_t RAM[67108864];
 extern uint8_t ROM[16777216];
 
 
-void i_type(int8_t operation, int32_t source_reg, int32_t dest_reg, int32_t immediate){
+int32_t i_type(int8_t operation, int32_t source_reg,int32_t dest_reg, int32_t immediate){
 	cout << "The value of the operation code :" << operation << endl; 
 	cout << "The value of the Source reg code :" << source_reg << endl;
 	cout << "The value of the Dest reg code :" << dest_reg << endl;
@@ -18,7 +18,7 @@ void i_type(int8_t operation, int32_t source_reg, int32_t dest_reg, int32_t imme
 	// ANDI Instruction
 	uint32_t temp;
 	if (operation == 12){
-		dest_reg = source_reg & immediate;
+		return( source_reg & immediate);
 	}
 	//ADDI
 	if (operation == 8) {
@@ -37,14 +37,14 @@ void i_type(int8_t operation, int32_t source_reg, int32_t dest_reg, int32_t imme
 			//Flag an overflow.
 		}
 		else {
-			dest_reg = test;
+			return test;
 		}
 	
 		//temp = source_reg + immediate;
 	}
 	//ADDIU
 	if (operation == 9){
-		dest_reg = immediate + source_reg;
+		return immediate + source_reg;
 	}
 	 // Yet to finish
 	if (operation == 32){ // Load Byte
@@ -55,7 +55,7 @@ void i_type(int8_t operation, int32_t source_reg, int32_t dest_reg, int32_t imme
 			// Return an address error;	
 			}
 			else {	
-			dest_reg = RAM[address];
+			return RAM[address];
 			}
 			// Insert an check for outside of memory;
 			//dest_reg = RAM[];
@@ -70,7 +70,7 @@ void i_type(int8_t operation, int32_t source_reg, int32_t dest_reg, int32_t imme
 			// Return an address error;	
 			}
 			else {	
-			dest_reg = RAM[address];
+			return RAM[address];
 			}
 			// Insert an check for outside of memory;
 			//dest_reg = RAM[];
@@ -78,23 +78,25 @@ void i_type(int8_t operation, int32_t source_reg, int32_t dest_reg, int32_t imme
 	} /// NEED TO CHECK ALL OF THESE
 	//ANDI
 	if (operation == 12){
-		dest_reg = immediate & source_reg;
+		return immediate & source_reg;
 	}
 	//ORI
 	if (operation == 13){
-		dest_reg = immediate | source_reg;
+		return immediate | source_reg;
 	}
 	//XORI
 	if (operation == 14){
-		dest_reg = immediate ^ source_reg;
+		return immediate ^ source_reg;
 	}
 
 	if (operation == 15){ // Load Upper Immediate
 		temp = (immediate << 16);
 		temp = temp & 0xFFFF0000;
-		dest_reg = temp;
+		return temp;
 	
 	}
+	
+	//// ALL OF THESE NEED TO BE CHECK PROPERLY
 	// Error check for address on the next 3 instructions
 	if (operation == 35){ // Load Word 
 		int32_t address = ((source_reg + immediate)*4); // Since we have split the memory into from 32 bits to 8 bits;
@@ -137,11 +139,11 @@ void i_type(int8_t operation, int32_t source_reg, int32_t dest_reg, int32_t imme
 	}
 	if (operation == 10){ // SLTI
 		int16_t temp = immediate;
-		dest_reg = source_reg < temp;
+		return source_reg < temp;
 	}
 	if (operation == 11){ // SLTIU
 		uint16_t temp = immediate;
-		dest_reg = source_reg < temp;
+		return source_reg < temp;
 	}
 }
 

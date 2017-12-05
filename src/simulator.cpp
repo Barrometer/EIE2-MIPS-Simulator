@@ -491,11 +491,10 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 			unsigned source_register = registers[((instruction >> 21) & 0x1f)];
 			unsigned dest_register = registers[((instruction >> 16) & 0x1f)];
 			unsigned immediate_constant = (instruction & 0xffff);
-			i_type(instruction,source_register,dest_register,immediate_constant);
+			
+			int32_t temp = i_type(instruction,source_register,dest_register, immediate_constant);
+			registers[((instruction >> 16) & 0x1f)] = temp;			
 		}	
-
-		
-
 
 	
 		//these things should happen at the end of every loop. 

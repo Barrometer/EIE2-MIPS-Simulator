@@ -175,6 +175,7 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 				cerr<<"For that lovely debug, program counter is currently "<< prog_counter<<endl;
 				exit(-20);
 			}
+		}
 		unsigned opcode = instruction >> 26;
 		if(debug_mode){
 			cerr<<"Opcode value is "<<opcode<<endl;
@@ -545,4 +546,4 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 	
 	return 0;
 }
-}
+

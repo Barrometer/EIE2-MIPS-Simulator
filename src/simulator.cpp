@@ -280,7 +280,9 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 		// J - types	AND branches
 		else if ((opcode == 2 || opcode == 3||opcode==1)||((opcode==0)&&(function==9)||(function==8))||((opcode>=4)&&(opcode<=7))) {// rather annoyingly, JR and JALR use opcode = 0. If opcode is between 4 and 7 its a branch type. If opcode is 1 it is one of several branches determined by reg2 of all things
 			//J_type_function;
-			cerr << "J types and branches need implementing" << endl; 
+			if(debug_mode){
+				cerr << "J types and branches need implementing" << endl; 
+			}
 			int32_t inst_index = instruction & 0x3FFFFFF;
 			int32_t rs = registers[((instruction >> 21) & 0x1f)]; // this is the register telling you where to jump to for the next two instructions
 			int32_t rt =registers[((instruction >> 16) & 0x1f)]; // needed for some branch instructions

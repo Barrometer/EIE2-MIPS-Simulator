@@ -47,12 +47,14 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 		exit(-21); //relevant exit code
 	}
 	//check whether debug time!
-	/*if(argv[2]=="debug"){
-		debug_mode = true; //this boolean will be used to enable some debug features
-		cerr<<"Debug mode enabled"<<endl;
-	}*/
-	
-	debug_mode =true;
+	if(argc>2){
+		string command_parr(argv[2]);
+		if(command_parr=="debug"){
+			debug_mode = true; //this boolean will be used to enable some debug features
+			cerr<<"Debug mode enabled"<<endl;
+		}
+	}
+	//debug_mode =true;
 		
 	
 	
@@ -163,9 +165,10 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 		
 			if(debug_mode){
 				cerr<<"DEBUG reading address 0 so exit. Implementation might be wrong - might be meant to execute instruction?"<<endl;
+				cerr<<"DEBUG - issue with some stuff. Register two currently has value "<< registers[2]<<endl;
 			}
 			
-			int8_t exit_result = registers[2]&&255; // selects lower 8 bits of reg2
+			int8_t exit_result = (registers[2]&255); // selects lower 8 bits of reg2
 			exit(exit_result);
 		}
 		
@@ -190,7 +193,7 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 			}
 		}
 		//R-types
-		else if ((opcode == 0)&&((function!=9)||(function!=8))) { // rather annoyingly, JR and JALR use opcode = 0, but are handeled seperately
+		else if ((opcode==0)&&(function!=9)&&(function!=8)) { // rather annoyingly, JR and JALR use opcode = 0, but are handeled seperately
 		
 		
 		
@@ -203,6 +206,14 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 			unsigned reg2 = registers[((instruction >> 16) & 0x1f)];
 			uint32_t dest = ((instruction >> 11) & 0x1f);
 			unsigned shift = ((instruction >> 6) & 0x1f);
+			
+			if(debug_mode){
+				cerr<<"For debug, values of reg etc are"<<endl;
+				cerr<<"reg1: "<<reg1<<endl;
+				cerr<<"reg2: "<<reg2<<endl;
+				cerr<<"dest: "<<dest<<endl;
+				cerr<<"shift: "<<shift<<endl;
+			}
 			
 			
 			if((function ==24)||(function==25)||(function==26)||(function==27)){ 	// these are the function codes for div, divu, mult, multu.
@@ -540,6 +551,11 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 		if(debug_mode){
 			cerr<<"While loop over, looping"<<endl;
 		}
+		/*if(debug_mode){
+			cerr<<"Due to annoying errors, please press a key to continue"<<endl;
+			cin.ignore();
+		}*/
+		
 	}
 	
 	cerr<<"End of current code"<<endl;

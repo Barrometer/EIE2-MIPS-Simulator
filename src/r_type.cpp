@@ -123,6 +123,9 @@ int32_t r_type(int32_t reg1, int32_t reg2, int8_t shift, int8_t function){
 		uint32_t temp2 = reg2;
 		return temp1 < temp2;
 	}
+	else{ // invalid function
+		exit(-12);
+	}
 	
 }
 int64_t r_type_long(int32_t reg1, int32_t reg2, int8_t function){
@@ -174,6 +177,9 @@ int64_t r_type_long(int32_t reg1, int32_t reg2, int8_t function){
 	else if(function == 25){//multu
 		resultu = reg1u*reg2u;
 		return resultu;
+	}
+	else{ // invalid function
+		exit(-12);
 	}
 }
 		

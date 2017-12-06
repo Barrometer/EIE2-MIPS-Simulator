@@ -47,9 +47,12 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 		exit(-21); //relevant exit code
 	}
 	//check whether debug time!
-	if(argv[3]=="debug"){
+	/*if(argv[2]=="debug"){
 		debug_mode = true; //this boolean will be used to enable some debug features
-	}
+		cerr<<"Debug mode enabled"<<endl;
+	}*/
+	
+	debug_mode =true;
 		
 	
 	
@@ -117,7 +120,7 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 	
 	//ok, main loop
 	
-	while(running){
+	while(running==true){
 		//default stuff
 		prog_counter_next = prog_counter +4; //default case, prog_counter_next could be updated further on
 		registers[0]=0; //Reset the register back 0;

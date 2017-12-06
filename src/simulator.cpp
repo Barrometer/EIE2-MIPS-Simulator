@@ -508,9 +508,24 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 			unsigned source_register = registers[((instruction >> 21) & 0x1f)];
 			unsigned dest_register = registers[((instruction >> 16) & 0x1f)];
 			unsigned immediate_constant = (instruction & 0xffff);
+			if(debug_mode){
+				cerr<<"Debug, source register is register "<<((instruction >> 21) & 0x1f)<<endl;
+				cerr<<"Debug, source has value "<<source_register<<endl;
+				cerr<<"Debug, dest register is register "<<((instruction >> 16) & 0x1f)<<endl;
+				cerr<<"Debug, dest has value "<<dest_register<<endl;
+				cerr<<"Debug, immediate is "<<immediate_constant<<endl;
+				cerr<<"Debug, instruction is "<<instruction<<endl;
+			
+				
+			}
 			
 			int32_t temp = i_type(instruction,source_register,dest_register, immediate_constant);
-			registers[((instruction >> 16) & 0x1f)] = temp;			
+			registers[((instruction >> 16) & 0x1f)] = temp;	
+			
+			if(debug_mode){
+				cerr<<"Debug, result of operation is"<<temp<<endl;
+			}
+						
 		}	
 
 	

@@ -10,10 +10,6 @@ extern uint8_t ROM[16777216];
 
 
 int32_t i_type(int8_t operation, int32_t source_reg,int32_t dest_reg, int32_t immediate){
-	cout << "The value of the operation code :" << operation << endl; 
-	cout << "The value of the Source reg code :" << source_reg << endl;
-	cout << "The value of the Dest reg code :" << dest_reg << endl;
-	cout << "The value of the Immediate code :" << immediate << endl;
 
 	// ANDI Instruction
 	uint32_t temp;

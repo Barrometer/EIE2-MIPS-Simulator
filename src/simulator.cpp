@@ -519,7 +519,7 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 				
 			}
 			
-			int32_t temp = i_type(instruction,source_register,dest_register, immediate_constant);
+			int32_t temp = i_type(opcode,source_register,dest_register, immediate_constant);
 			registers[((instruction >> 16) & 0x1f)] = temp;	
 			
 			if(debug_mode){

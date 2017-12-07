@@ -21,12 +21,12 @@ are:
 
 For those in pairs, delete the third column.
 
-                            | edp16		 | ImpLogin2 | ImpLogin3 |
+                            | edp16	| thw116    | ms16	|
 -----------------------------------------------------------------
-Getting started             |   -       |    -      |       -   |
-Co-ordination/management    |   -       |    -      |       -   |
-Architectural knowledge     |   -       |    -      |       -   |
-Software skills             |   -       |    -      |       -   |
-Testbench design            |   -       |    -      |       -   |
-Automation skills           |   -       |    -      |       -   |
-Debugging                   |   -       |    -      |       -   |
+Getting started             |   3       |    2      |       2   |
+Co-ordination/management    |   4       |    1      |       2   |
+Architectural knowledge     |   2       |    1      |       4   |
+Software skills             |   -       |    1      |       -   |
+Testbench design            |   2       |    2      |       -   |
+Automation skills           |   -       |    1      |       -   |
+Debugging                   |   -       |    1      |       -   |

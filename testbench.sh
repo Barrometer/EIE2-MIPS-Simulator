@@ -41,4 +41,55 @@ else
 
 fi
 
+./$1 testbench/Finals/ADDI_ms.bin
 
+if [ $? -eq 51 ] ; then
+	
+	echo -e "ADDI no overflow,\t ADDI,\t Pass,\t ms5516"
+else
+	echo -e "ADDI no overflow,\t ADDI,\t Fail,\t ms5516"
+
+fi
+
+./$1 testbench/Finals/ANDI_ms.bin
+
+if [ $? -eq 7 ] ; then
+	
+	echo -e "ANDI,\t ANDI,\t Pass,\t ms5516"
+else
+	echo -e "ANDI,\t ANDI,\t Fail,\t ms5516"
+
+fi
+
+
+./$1 testbench/Finals/ORI_ms.bin
+
+if [ $? -eq 15 ] ; then
+	
+	echo -e "ORI,\t ORI,\t Pass,\t ms5516"
+else
+	echo -e "ORI,\t ORI,\t Fail,\t ms5516"
+
+fi
+
+
+./$1 testbench/Finals/XOR_ms.bin
+
+if [ $? -eq 7 ] ; then
+	
+	echo -e "XOR,\t XOR,\t Pass,\t ms5516"
+else
+	echo -e "XOR,\t XOR,\t Fail,\t ms5516"
+
+fi
+
+
+./$1 testbench/Finals/XORI_ms.bin
+
+if [ $? -eq 3 ] ; then
+	
+	echo -e "XORI,\t XORI,\t Pass,\t ms5516"
+else
+	echo -e "XORI,\t XORI,\t Fail,\t ms5516"
+
+fi

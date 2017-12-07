@@ -503,7 +503,9 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 		}
 		else {
 			//Misc I_type_function;
-			cerr << "Load, Store and Memory functions need to be implmented" << endl; 
+				if(debug_mode){
+					cerr << "Load, Store and Memory functions need to be implmented" << endl; 
+				}
 			//Binary breakdown
 			unsigned source_register = registers[((instruction >> 21) & 0x1f)];
 			unsigned dest_register = registers[((instruction >> 16) & 0x1f)];

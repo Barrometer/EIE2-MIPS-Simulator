@@ -7,7 +7,7 @@ if [ $? -eq 8 ] ; then
 	
 	echo -e "JALR_1,\t JALR,\t Pass,\t edp16"
 else
-	echo "Fail"
+	echo -e "JALR_1,\t JALR,\t Fail,\t edp16"
 
 fi
 
@@ -17,6 +17,6 @@ if [ $? -eq 15 ] ; then
 	
 	echo -e "ADDIU_1,\t ADDIU,\t Pass,\t edp16"
 else
-	echo "Fail"
+	echo -e "ADDIU_1,\t ADDIU,\t Pass,\t edp16"
 
 fi

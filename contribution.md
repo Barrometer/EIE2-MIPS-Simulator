@@ -21,12 +21,12 @@ are:
 
 For those in pairs, delete the third column.
 
-                            | edp16	| thw116    | ms16	|
+                            | edp16		| thw116    | ms5516	|
 -----------------------------------------------------------------
 Getting started             |   3       |    2      |       2   |
 Co-ordination/management    |   4       |    1      |       2   |
 Architectural knowledge     |   2       |    1      |       4   |
-Software skills             |   -       |    1      |       -   |
-Testbench design            |   2       |    2      |       -   |
-Automation skills           |   -       |    1      |       -   |
-Debugging                   |   -       |    1      |       -   |
+Software skills             |   3      	|    1    	|		3	|
+Testbench design            |   3       |    2      |       2   |
+Automation skills           |   2       |    3      |       2   |
+Debugging                   |   3       |    1      |       3   |

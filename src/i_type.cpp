@@ -125,6 +125,7 @@ int32_t i_type(int8_t operation, int32_t source_reg,int32_t dest_reg, int32_t im
 
 		if (address > 67108864){
 			// Return an address error;	
+			exit(-11);
 		}
 		else {	
 			RAM[address+0] = ((dest_reg >> 24) & 0xff);

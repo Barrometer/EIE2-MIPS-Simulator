@@ -159,6 +159,26 @@ else
 
 fi
 
+./$1 testbench/Finals/MULTUlo_ed.bin
+
+if [ $? -eq 48 ] ; then
+	
+	echo -e "MULTUlo,\t MULTU,\t Pass,\t edp16"
+else
+	echo -e "MULTUlo,\t MULTU,\t Fail,\t edp16"
+
+fi
+
+./$1 testbench/Finals/MULTUhi_ed.bin
+
+if [ $? -eq 3 ] ; then
+	
+	echo -e "MULTUhi,\t MULTU,\t Pass,\t edp16"
+else
+	echo -e "MULTUhi,\t MULTU,\t Fail,\t edp16"
+
+fi
+
 ./$1 testbench/Finals/BEQ_ms.bin
 
 if [ $? -eq 5 ] ; then

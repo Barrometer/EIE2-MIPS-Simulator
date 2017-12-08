@@ -253,17 +253,31 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 			}
 			// now for functions such as move from HI
 			else if (function == 16){ // Move from HI Register
+				if(debug_mode){
+					cerr<<"Debug, MFHI"<<endl;
+				}
 				registers[dest] = reg_HI; // moves reg_HI into register pointed to by dest
 			}
 			else if (function == 18){ // Move from LO Register
 				registers[dest] = reg_LO; // moves reg_LO to register pointed to by dest
+				if(debug_mode){
+					cerr<<"Debug, MFLO"<<endl;
+				}
 			}
 			else if (function == 17){ // Move to HI register 
-				reg_HI = registers[reg1];
+				reg_HI = reg1;
+				if(debug_mode){
+					cerr<<"Debug, MTHI"<<endl;
+					cerr<<"Reg HI = "<<reg_HI<<endl;
+				}
 			
 			}
 			else if (function == 19) { // Move to LO register
-				reg_LO = registers[reg1];
+				reg_LO = reg1;
+				if(debug_mode){
+					cerr<<"Debug, MTLO"<<endl;
+					cerr<<"Reg LO = "<<reg_LO<<endl;
+				}
 			}
 		 
 			else{ // if not multiply or divide or move from hi type stuff

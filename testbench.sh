@@ -138,3 +138,13 @@ else
 	echo -e "SRA_-,\t SRA,\t Fail,\t edp16"
 
 fi
+
+./$1 testbench/Finals/MFHI_ed.bin
+
+if [ $? -eq 15 ] ; then
+	
+	echo -e "MFHI,\t MFHI,\t Pass,\t edp16"
+else
+	echo -e "MFHI,\t MFHI,\t Fail,\t edp16"
+
+fi

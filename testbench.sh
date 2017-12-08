@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo -e "TestID, Instruction, Status, Author, [Message]"
-./$1 testbench/Ed_Test_1.bin
+./$1 testbench_files/Ed_Test_1.bin
 
 if [ $? -eq 8 ] ; then
 	
@@ -11,7 +11,7 @@ else
 
 fi
 
-./$1 testbench/Ed_Test_2.bin
+./$1 testbench_files/Ed_Test_2.bin
 
 if [ $? -eq 15 ] ; then
 	
@@ -21,7 +21,7 @@ else
 
 fi
 
-./$1 testbench/Finals/Addu_ms.bin
+./$1 testbench_files/Addu_ms.bin
 
 if [ $? -eq 30 ] ; then
 	
@@ -31,7 +31,7 @@ else
 
 fi
 
-./$1 testbench/Finals/ADD_withoutOverflow_ms.bin
+./$1 testbench_files/ADD_withoutOverflow_ms.bin
 
 if [ $? -eq 27 ] ; then
 	
@@ -41,7 +41,7 @@ else
 
 fi
 
-./$1 testbench/Finals/ADDI_ms.bin
+./$1 testbench_files/ADDI_ms.bin
 
 if [ $? -eq 51 ] ; then
 	
@@ -51,7 +51,7 @@ else
 
 fi
 
-./$1 testbench/Finals/ANDI_ms.bin
+./$1 testbench_files/ANDI_ms.bin
 
 if [ $? -eq 7 ] ; then
 	
@@ -62,7 +62,7 @@ else
 fi
 
 
-./$1 testbench/Finals/ORI_ms.bin
+./$1 testbench_files/ORI_ms.bin
 
 if [ $? -eq 15 ] ; then
 	
@@ -73,7 +73,7 @@ else
 fi
 
 
-./$1 testbench/Finals/XOR_ms.bin
+./$1 testbench_files/XOR_ms.bin
 
 if [ $? -eq 3 ] ; then
 	
@@ -84,7 +84,7 @@ else
 fi
 
 
-./$1 testbench/Finals/XORI_ms.bin
+./$1 testbench_files/XORI_ms.bin
 
 if [ $? -eq 10 ] ; then
 	
@@ -97,7 +97,7 @@ fi
 
 
 
-./$1 testbench/Finals/SLL_ed.bin
+./$1 testbench_files/SLL_ed.bin
 
 if [ $? -eq 30 ] ; then
 	
@@ -107,7 +107,7 @@ else
 
 fi
 
-./$1 testbench/Finals/SLLV_ed.bin
+./$1 testbench_files/SLLV_ed.bin
 
 if [ $? -eq 60 ] ; then
 	
@@ -118,7 +118,7 @@ else
 fi
 
 
-./$1 testbench/Finals/SRA_ed.bin
+./$1 testbench_files/SRA_ed.bin
 
 if [ $? -eq 40 ] ; then
 	
@@ -129,7 +129,7 @@ else
 fi
 
 
-./$1 testbench/Finals/SRAneg_ed.bin
+./$1 testbench_files/SRAneg_ed.bin
 
 if [ $? -eq 255 ] ; then
 	
@@ -139,7 +139,7 @@ else
 
 fi
 
-./$1 testbench/Finals/MFHI_ed.bin
+./$1 testbench_files/MFHI_ed.bin
 
 if [ $? -eq 15 ] ; then
 	
@@ -149,7 +149,7 @@ else
 
 fi
 
-./$1 testbench/Finals/MFLO_ed.bin
+./$1 testbench_files/MFLO_ed.bin
 
 if [ $? -eq 14 ] ; then
 	
@@ -159,7 +159,7 @@ else
 
 fi
 
-./$1 testbench/Finals/MULTUlo_ed.bin
+./$1 testbench_files/MULTUlo_ed.bin
 
 if [ $? -eq 48 ] ; then
 	
@@ -169,7 +169,7 @@ else
 
 fi
 
-./$1 testbench/Finals/MULTUhi_ed.bin
+./$1 testbench_files/MULTUhi_ed.bin
 
 if [ $? -eq 3 ] ; then
 	
@@ -179,7 +179,7 @@ else
 
 fi
 
-./$1 testbench/Finals/MULTnegneg_ed.bin
+./$1 testbench_files/MULTnegneg_ed.bin
 
 if [ $? -eq 6 ] ; then
 	
@@ -189,7 +189,7 @@ else
 
 fi
 
-./$1 testbench/Finals/MULTnegpos_ed.bin
+./$1 testbench_files/MULTnegpos_ed.bin
 
 if [ $? -eq 72 ] ; then
 	
@@ -199,7 +199,7 @@ else
 
 fi
 
-./$1 testbench/Finals/DIVUnorem1_ed.bin
+./$1 testbench_files/DIVUnorem1_ed.bin
 
 if [ $? -eq 2 ] ; then
 	
@@ -209,7 +209,7 @@ else
 
 fi
 
-./$1 testbench/Finals/DIVUnorem2_ed.bin
+./$1 testbench_files/DIVUnorem2_ed.bin
 
 if [ $? -eq 0 ] ; then
 	
@@ -219,7 +219,7 @@ else
 
 fi
 
-./$1 testbench/Finals/DIVurem1_ed.bin
+./$1 testbench_files/DIVurem1_ed.bin
 
 if [ $? -eq 1 ] ; then
 	
@@ -229,7 +229,7 @@ else
 
 fi
 
-./$1 testbench/Finals/DIVurem2_ed.bin
+./$1 testbench_files/DIVurem2_ed.bin
 
 if [ $? -eq 3 ] ; then
 	
@@ -239,7 +239,7 @@ else
 
 fi
 
-./$1 testbench/Finals/DIVtest1.bin
+./$1 testbench_files/DIVtest1.bin
 
 if [ $? -eq 253 ] ; then
 	
@@ -249,7 +249,7 @@ else
 
 fi
 
-./$1 testbench/Finals/DIVtest2.bin
+./$1 testbench_files/DIVtest2.bin
 
 if [ $? -eq 255 ] ; then
 	
@@ -259,7 +259,7 @@ else
 
 fi
 
-./$1 testbench/Finals/DIVtest3.bin
+./$1 testbench_files/DIVtest3.bin
 
 if [ $? -eq 3 ] ; then
 	
@@ -270,7 +270,7 @@ else
 fi
 
 
-./$1 testbench/Finals/BEQ_ms.bin
+./$1 testbench_files/BEQ_ms.bin
 
 if [ $? -eq 5 ] ; then
 	
@@ -280,7 +280,7 @@ else
 
 fi
 
-./$1 testbench/Finals/BEQ_notEqual_ms.bin
+./$1 testbench_files/BEQ_notEqual_ms.bin
 
 if [ $? -eq 10 ] ; then
 	
@@ -290,7 +290,7 @@ else
 
 fi
 
-./$1 testbench/Finals/BGEZ_ms.bin
+./$1 testbench_files/BGEZ_ms.bin
 
 if [ $? -eq 21 ] ; then
 	
@@ -300,7 +300,7 @@ else
 
 fi
 
-./$1 testbench/Finals/BGEZAL_ms.bin
+./$1 testbench_files/BGEZAL_ms.bin
 
 if [ $? -eq 12 ] ; then
 	
@@ -310,7 +310,7 @@ else
 
 fi
 
-./$1 testbench/Finals/SW_LW_ms.bin
+./$1 testbench_files/SW_LW_ms.bin
 
 if [ $? -eq 15 ] ; then
 	

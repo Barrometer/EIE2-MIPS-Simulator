@@ -86,7 +86,7 @@ fi
 
 ./$1 testbench/Finals/XORI_ms.bin
 
-if [ $? -eq 3 ] ; then
+if [ $? -eq 10 ] ; then
 	
 	echo -e "XORI,\t XORI,\t Pass,\t ms5516"
 else

@@ -75,7 +75,7 @@ fi
 
 ./$1 testbench/Finals/XOR_ms.bin
 
-if [ $? -eq 7 ] ; then
+if [ $? -eq 3 ] ; then
 	
 	echo -e "XOR,\t XOR,\t Pass,\t ms5516"
 else
@@ -91,5 +91,18 @@ if [ $? -eq 3 ] ; then
 	echo -e "XORI,\t XORI,\t Pass,\t ms5516"
 else
 	echo -e "XORI,\t XORI,\t Fail,\t ms5516"
+
+fi
+
+
+
+
+./$1 testbench/Finals/SLL_ed.bin
+
+if [ $? -eq 30 ] ; then
+	
+	echo -e "SLL,\t SLL,\t Pass,\t edp16"
+else
+	echo -e "SLL,\t SLL,\t Fail,\t edp16"
 
 fi

@@ -2,12 +2,8 @@ This repository contains the src files required to compile a working MIPs simula
 
 This project was created by Tim Wu, Mayank Surana, and Edward Pickup
 
-To compile the project from source provided use the make file provided and run "make bin/mips_simulator"
+To compile the project from source provided use the make file provided and run "make simulator" to create the simulator.
 
+To create the testbench run "make testbench".
 
-For DT:
-
-The project as current has a working input for binaries, working RAM and ROM, will recgonize the difference between r,i,j type instructions
-and execute addu, and, xor, SLTU and or type instructions. There is no way of loading intermediate in - to test that these works you will have to hard set registers
-There are several .hpp files currently with minimal code in them, the interesting files are simulator.cpp and r_type.cpp. The files are currently launched through the cpp file and We have not been able to intergrate it with the makefile. It currently
-works by only using the simulator.cpp file
+It is known that some functionality of the specification is not met, notably the functionality around ADDR_GETC and ADDR_PUTC. These would have been implemented time allowing.

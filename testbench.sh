@@ -116,3 +116,25 @@ else
 	echo -e "SLLV,\t SLLV,\t Fail,\t edp16"
 
 fi
+
+
+./$1 testbench/Finals/SRA_ed.bin
+
+if [ $? -eq 40 ] ; then
+	
+	echo -e "SRA_+,\t SRA,\t Pass,\t edp16"
+else
+	echo -e "SRA_+,\t SRA,\t Fail,\t edp16"
+
+fi
+
+
+./$1 testbench/Finals/SRAneg_ed.bin
+
+if [ $? -eq 255 ] ; then
+	
+	echo -e "SRA_-,\t SRA,\t Pass,\t edp16"
+else
+	echo -e "SRA_-,\t SRA,\t Fail,\t edp16"
+
+fi

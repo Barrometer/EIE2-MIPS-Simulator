@@ -79,8 +79,8 @@ int32_t r_type(int32_t reg1, int32_t reg2, int8_t shift, int8_t function){
 		return temp;
 		
 	}
-	else if (function == 3) // Shift Word Right Arithmetic
-	{
+	else if (function == 3){ // Shift Word Right Arithmetic
+	
 		return (reg2 >> shift); 
 	}
 

@@ -9,7 +9,7 @@ extern uint8_t RAM[67108864];
 extern uint8_t ROM[16777216];
 
 
-int32_t i_type(int8_t operation, int32_t source_reg,int32_t dest_reg, int32_t immediate){
+int32_t i_type(int8_t operation, int32_t source_reg,int32_t dest_reg, int16_t immediate){
 
 	// ANDI Instruction
 	uint32_t temp;

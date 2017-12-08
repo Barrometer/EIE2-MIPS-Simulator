@@ -92,24 +92,69 @@ int32_t i_type(int8_t operation, int32_t source_reg,int32_t dest_reg, int16_t im
 	
 	}
 	
-	//// ALL OF THESE NEED TO BE CHECK PROPERLY
-	// Error check for address on the next 3 instructions
-	else if (operation == 35){ // Load Word 
+	else if (operation == 33){ // Load Half-Word 
+	
 		int32_t address = ((source_reg + immediate)*4); // Since we have split the memory into from 32 bits to 8 bits;
+		if ((address%2)== 0){ 
 		if (address > 67108864){
 			// Return an address error;	
 			exit(-11);
 			}
 			else {	
 	
-			int32_t result = RAM[address+0]<<24;
+			int16_t result = RAM[address]<<8;
+			result += RAM[address+1];
+			}
+		}
+		else {
+			exit(-11);
+		}
+	}
+	
+	else if (operation == 37){ // Load Half-Word Unsigned
+	
+		int32_t address = ((source_reg + immediate)*4); // Since we have split the memory into from 32 bits to 8 bits;
+		if ((address%2)== 0){ 
+		if (address > 67108864){
+			// Return an address error;	
+			exit(-11);
+			}
+			else {	
+	
+			uint16_t result = RAM[address]<<8;
+			result += RAM[address+1];
+			}
+		}
+		else {
+			exit(-11);
+		}
+	}
+	
+	//// ALL OF THESE NEED TO BE CHECK PROPERLY
+	// Error check for address on the next 3 instructions
+	else if (operation == 35){ // Load Word 
+	
+		int32_t address = ((source_reg + immediate)*4); // Since we have split the memory into from 32 bits to 8 bits;
+		if ((address%4)== 0){ 
+		if (address > 67108864){
+			// Return an address error;	
+			exit(-11);
+			}
+			else {	
+	
+			int32_t result = RAM[address]<<24;
 			result += RAM[address+1]<<16;
 			result += RAM[address+2]<<8;
 			result += RAM[address+3];
 			}
+		}
+		else {
+			exit(-11);
+		}
 	}
 	else if (operation == 40){ // Store Byte
 		int32_t address = (source_reg + immediate)*4;
+		if ((address%4)== 0){ 
 		if (address > 67108864){
 			// Return an address error;
 			exit(-11);	
@@ -118,20 +163,28 @@ int32_t i_type(int8_t operation, int32_t source_reg,int32_t dest_reg, int16_t im
 	
 				RAM[address] = dest_reg;
 			}
+		}
+		else {
+			exit(-11);
+		}
 	}
 
-	else if (operation == 43){
+	else if (operation == 43){ // Store Word
 		int32_t address = (source_reg + immediate)*4;
-
+	if ((address%4)== 0){ 
 		if (address > 67108864){
 			// Return an address error;	
 			exit(-11);
 		}
 		else {	
-			RAM[address+0] = ((dest_reg >> 24) & 0xff);
+			RAM[address] = ((dest_reg >> 24) & 0xff);
 			RAM[address+1] = ((dest_reg >> 16) & 0xff);
 			RAM[address+2] = ((dest_reg >> 8) & 0xff);
 			RAM[address+3] = ((dest_reg) & 0xff);
+		}
+	}
+		else {
+			exit(-11);
 		}
 	}
 	else if (operation == 10){ // SLTI
@@ -142,6 +195,7 @@ int32_t i_type(int8_t operation, int32_t source_reg,int32_t dest_reg, int16_t im
 		uint16_t temp = immediate;
 		return source_reg < temp;
 	}
+	
 	else{ //invalid instruction catch
 		exit(-12);
 	}
@@ -159,3 +213,4 @@ int32_t i_type(int8_t operation, int32_t source_reg,int32_t dest_reg, int16_t im
 	
 	
 	
+//268435468

@@ -158,3 +158,23 @@ else
 	echo -e "MFLO,\t MFLO,\t Fail,\t edp16"
 
 fi
+
+./$1 testbench/Finals/BEQ_ms.bin
+
+if [ $? -eq 5 ] ; then
+	
+	echo -e "BEQ,\t BEQ,\t Pass,\t ms5516"
+else
+	echo -e "BEQ,\t BEQ,\t Fail,\t ms5516"
+
+fi
+
+./$1 testbench/Finals/BEQ_notEqual_ms.bin
+
+if [ $? -eq 10 ] ; then
+	
+	echo -e "BEQ-NotEqual,\t BEQ-NotEqual,\t Pass,\t ms5516"
+else
+	echo -e "BEQ-NotEqual,\t BEQ-NotEqual,\t Fail,\t ms5516"
+
+fi

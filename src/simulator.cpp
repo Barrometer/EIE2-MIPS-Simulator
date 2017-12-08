@@ -177,7 +177,7 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 				cerr<<"DEBUG - Something should happen but not implemented?"<<endl;
 				cerr<<"For that lovely debug, program counter is currently "<< prog_counter<<endl;
 			}
-			exit(-20);
+			exit(-11);
 		}
 		unsigned opcode = instruction >> 26;
 		if(debug_mode){

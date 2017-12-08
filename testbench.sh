@@ -1,13 +1,13 @@
 #!/bin/bash
 
-
+echo -e "TestID, Instruction, Status, Author, [Message]"
 ./$1 testbench/Ed_Test_1.bin
 
 if [ $? -eq 8 ] ; then
 	
-	echo -e "JALR_1,\t JALR,\t Pass,\t edp16"
+	echo -e "JALR_1, JALR, Pass, edp16"
 else
-	echo -e "JALR_1,\t JALR,\t Fail,\t edp16"
+	echo -e "JALR_1, JALR,Fail,edp16"
 
 fi
 
@@ -15,9 +15,9 @@ fi
 
 if [ $? -eq 15 ] ; then
 	
-	echo -e "ADDIU,\t ADDIU,\t Pass,\t edp16"
+	echo -e "ADDIU, ADDIU, Pass,   edp16"
 else
-	echo -e "ADDIU,\t ADDIU,\t Fail,\t edp16"
+	echo -e "ADDIU, ADDIU,   Fail,   edp16"
 
 fi
 
@@ -25,9 +25,9 @@ fi
 
 if [ $? -eq 30 ] ; then
 	
-	echo -e "Addu,\t ADDU,\t Pass,\t ms5516"
+	echo -e "Addu,   ADDU,   Pass,   ms5516"
 else
-	echo -e "Addu,\t ADDU,\t Fail,\t ms5516"
+	echo -e "Addu,   ADDU,   Fail,   ms5516"
 
 fi
 
@@ -35,9 +35,9 @@ fi
 
 if [ $? -eq 27 ] ; then
 	
-	echo -e "ADD no overflow,\t ADD,\t Pass,\t ms5516"
+	echo -e "ADD no overflow,   ADD,   Pass,   ms5516"
 else
-	echo -e "ADD no overflow,\t ADD,\t Fail,\t ms5516"
+	echo -e "ADD no overflow,   ADD,   Fail,   ms5516"
 
 fi
 
@@ -45,9 +45,9 @@ fi
 
 if [ $? -eq 51 ] ; then
 	
-	echo -e "ADDI no overflow,\t ADDI,\t Pass,\t ms5516"
+	echo -e "ADDI no overflow,   ADDI,   Pass,   ms5516"
 else
-	echo -e "ADDI no overflow,\t ADDI,\t Fail,\t ms5516"
+	echo -e "ADDI no overflow,   ADDI,   Fail,   ms5516"
 
 fi
 
@@ -55,9 +55,9 @@ fi
 
 if [ $? -eq 7 ] ; then
 	
-	echo -e "ANDI,\t ANDI,\t Pass,\t ms5516"
+	echo -e "ANDI,   ANDI,   Pass,   ms5516"
 else
-	echo -e "ANDI,\t ANDI,\t Fail,\t ms5516"
+	echo -e "ANDI,   ANDI,   Fail,   ms5516"
 
 fi
 
@@ -66,9 +66,9 @@ fi
 
 if [ $? -eq 15 ] ; then
 	
-	echo -e "ORI,\t ORI,\t Pass,\t ms5516"
+	echo -e "ORI,   ORI,   Pass,   ms5516"
 else
-	echo -e "ORI,\t ORI,\t Fail,\t ms5516"
+	echo -e "ORI,   ORI,   Fail,   ms5516"
 
 fi
 
@@ -77,9 +77,9 @@ fi
 
 if [ $? -eq 3 ] ; then
 	
-	echo -e "XOR,\t XOR,\t Pass,\t ms5516"
+	echo -e "XOR,   XOR,   Pass,   ms5516"
 else
-	echo -e "XOR,\t XOR,\t Fail,\t ms5516"
+	echo -e "XOR,   XOR,   Fail,   ms5516"
 
 fi
 
@@ -88,9 +88,9 @@ fi
 
 if [ $? -eq 10 ] ; then
 	
-	echo -e "XORI,\t XORI,\t Pass,\t ms5516"
+	echo -e "XORI,   XORI,   Pass,   ms5516"
 else
-	echo -e "XORI,\t XORI,\t Fail,\t ms5516"
+	echo -e "XORI,   XORI,   Fail,   ms5516"
 
 fi
 
@@ -101,9 +101,9 @@ fi
 
 if [ $? -eq 30 ] ; then
 	
-	echo -e "SLL,\t SLL,\t Pass,\t edp16"
+	echo -e "SLL,   SLL,   Pass,   edp16"
 else
-	echo -e "SLL,\t SLL,\t Fail,\t edp16"
+	echo -e "SLL,   SLL,   Fail,   edp16"
 
 fi
 
@@ -111,9 +111,9 @@ fi
 
 if [ $? -eq 60 ] ; then
 	
-	echo -e "SLLV,\t SLLV,\t Pass,\t edp16"
+	echo -e "SLLV,   SLLV,   Pass,   edp16"
 else
-	echo -e "SLLV,\t SLLV,\t Fail,\t edp16"
+	echo -e "SLLV,   SLLV,   Fail,   edp16"
 
 fi
 
@@ -122,9 +122,9 @@ fi
 
 if [ $? -eq 40 ] ; then
 	
-	echo -e "SRA_+,\t SRA,\t Pass,\t edp16"
+	echo -e "SRA_+,   SRA,   Pass,   edp16"
 else
-	echo -e "SRA_+,\t SRA,\t Fail,\t edp16"
+	echo -e "SRA_+,   SRA,   Fail,   edp16"
 
 fi
 
@@ -133,9 +133,9 @@ fi
 
 if [ $? -eq 255 ] ; then
 	
-	echo -e "SRA_-,\t SRA,\t Pass,\t edp16"
+	echo -e "SRA_-,   SRA,   Pass,   edp16"
 else
-	echo -e "SRA_-,\t SRA,\t Fail,\t edp16"
+	echo -e "SRA_-,   SRA,   Fail,   edp16"
 
 fi
 
@@ -143,9 +143,9 @@ fi
 
 if [ $? -eq 15 ] ; then
 	
-	echo -e "MFHI,\t MFHI,\t Pass,\t edp16"
+	echo -e "MFHI,   MFHI,   Pass,   edp16"
 else
-	echo -e "MFHI,\t MFHI,\t Fail,\t edp16"
+	echo -e "MFHI,   MFHI,   Fail,   edp16"
 
 fi
 
@@ -153,9 +153,9 @@ fi
 
 if [ $? -eq 14 ] ; then
 	
-	echo -e "MFLO,\t MFLO,\t Pass,\t edp16"
+	echo -e "MFLO,   MFLO,   Pass,   edp16"
 else
-	echo -e "MFLO,\t MFLO,\t Fail,\t edp16"
+	echo -e "MFLO,   MFLO,   Fail,   edp16"
 
 fi
 
@@ -163,9 +163,9 @@ fi
 
 if [ $? -eq 48 ] ; then
 	
-	echo -e "MULTUlo,\t MULTU,\t Pass,\t edp16"
+	echo -e "MULTUlo,   MULTU,   Pass,   edp16"
 else
-	echo -e "MULTUlo,\t MULTU,\t Fail,\t edp16"
+	echo -e "MULTUlo,   MULTU,   Fail,   edp16"
 
 fi
 
@@ -173,9 +173,9 @@ fi
 
 if [ $? -eq 3 ] ; then
 	
-	echo -e "MULTUhi,\t MULTU,\t Pass,\t edp16"
+	echo -e "MULTUhi,   MULTU,   Pass,   edp16"
 else
-	echo -e "MULTUhi,\t MULTU,\t Fail,\t edp16"
+	echo -e "MULTUhi,   MULTU,   Fail,   edp16"
 
 fi
 
@@ -183,9 +183,19 @@ fi
 
 if [ $? -eq 6 ] ; then
 	
-	echo -e "MULT--,\t MULT,\t Pass,\t edp16"
+	echo -e "MULT--,   MULT,   Pass,   edp16"
 else
-	echo -e "MULT--,\t MULT,\t Fail,\t edp16"
+	echo -e "MULT--,   MULT,   Fail,   edp16"
+
+fi
+
+./$1 testbench/Finals/MULTnegpos_ed.bin
+
+if [ $? -eq 72 ] ; then
+	
+	echo -e "MULT+-,   MULT,   Pass,   edp16"
+else
+	echo -e "MULT+-,   MULT,   Fail,   edp16"
 
 fi
 
@@ -194,9 +204,9 @@ fi
 
 if [ $? -eq 5 ] ; then
 	
-	echo -e "BEQ,\t BEQ,\t Pass,\t ms5516"
+	echo -e "BEQ,   BEQ,   Pass,   ms5516"
 else
-	echo -e "BEQ,\t BEQ,\t Fail,\t ms5516"
+	echo -e "BEQ,   BEQ,   Fail,   ms5516"
 
 fi
 
@@ -204,9 +214,9 @@ fi
 
 if [ $? -eq 10 ] ; then
 	
-	echo -e "BEQ-NotEqual,\t BEQ-NotEqual,\t Pass,\t ms5516"
+	echo -e "BEQ-NotEqual,   BEQ,   Pass,   ms5516"
 else
-	echo -e "BEQ-NotEqual,\t BEQ-NotEqual,\t Fail,\t ms5516"
+	echo -e "BEQ-NotEqual,   BEQ,   Fail,   ms5516"
 
 fi
 
@@ -214,8 +224,8 @@ fi
 
 if [ $? -eq 21 ] ; then
 	
-	echo -e "BGEZ,\t BGEZ,\t Pass,\t ms5516"
+	echo -e "BGEZ,   BGEZ,   Pass,   ms5516"
 else
-	echo -e "BGEZ,\t BGEZ,\t Fail,\t ms5516"
+	echo -e "BGEZ,   BGEZ,   Fail,   ms5516"
 
 fi

@@ -176,8 +176,8 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 			if(debug_mode){
 				cerr<<"DEBUG - Something should happen but not implemented?"<<endl;
 				cerr<<"For that lovely debug, program counter is currently "<< prog_counter<<endl;
-				exit(-20);
 			}
+			exit(-20);
 		}
 		unsigned opcode = instruction >> 26;
 		if(debug_mode){
@@ -298,8 +298,12 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 				cerr << "J types and branches need implementing" << endl; 
 			}
 			int32_t inst_index = instruction & 0x3FFFFFF;
-			int32_t rs = registers[((instruction >> 21) & 0x1f)]; // this is the register telling you where to jump to for the next two instructions
+			int32_t rs = registers[((instruction >> 21) & 0x1f)]; // this is the register telling you where to jump to for the next two instructions	
+			int rs_val = ((instruction >> 21) & 0x1f);
+
 			int32_t rt =registers[((instruction >> 16) & 0x1f)]; // needed for some branch instructions
+
+			int rt_val = ((instruction >> 16) & 0x1f);
 			
 			int32_t rd = ((instruction >> 11) & 0x1f); // needed for JALR
 			
@@ -308,7 +312,9 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 				cerr<<"Inst_index is "<<inst_index<<endl;
 				cerr<<"rs is "<<rs<<endl;
 				cerr<<"rt is "<<rt<<endl;
+				cerr<<"rt_val is "<<rt_val<<endl;
 				cerr<<"rd is "<<rd<<endl;
+				cerr<<"rs_val is "<<rs_val<<endl;
 				cerr<<"offset is "<<offset<<endl;
 		
 		}
@@ -436,14 +442,14 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 				
 			}
 			else if(opcode==1){//stupid branches sharing opcode
-				if(rt==1){ // this is BGEZ
+				if(rt_val==1){ // this is BGEZ
 					if(debug_mode){
 						cerr<<"Instruction is BGEZ"<<endl;
 					}
 					
 					//branch if rs >=0
 					
-					if(rs>=0){
+					if(rs_val>=0){
 						if(debug_mode){
 							cerr<<"DEBUG rs >=0, branching"<<endl;
 						}
@@ -454,14 +460,14 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 				
 				
 				}
-				else if(rt==17){ // this is BGEZAL
+				else if(rt_val==17){ // this is BGEZAL
 					if(debug_mode){
 						cerr<<"Instruction is BGEZAL"<<endl;
 					}
 					
 					//branch if rs >=0
 					
-					if(rs>=0){
+					if(rs_val>=0){
 						if(debug_mode){
 							cerr<<"DEBUG rs >=0, branching and linking"<<endl;
 						}
@@ -476,14 +482,14 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 				
 				}
 				
-				else if(rt==0){ // this is BLTZ
+				else if(rt_val==0){ // this is BLTZ
 					if(debug_mode){
 						cerr<<"Instruction is BLTZ"<<endl;
 					}
 					
 					//branch if rs <0
 					
-					if(rs<0){
+					if(rs_val<0){
 						if(debug_mode){
 							cerr<<"DEBUG rs <0, branching"<<endl;
 						}
@@ -494,14 +500,14 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 				
 				
 				}
-				else if(rt==16){ // this is BLTZAL
+				else if(rt_val==16){ // this is BLTZAL
 					if(debug_mode){
 						cerr<<"Instruction is BLTZAL"<<endl;
 					}
 					
 					//branch if rs <0
 					
-					if(rs<0){
+					if(rs_val<0){
 						if(debug_mode){
 							cerr<<"DEBUG rs <0, branching"<<endl;
 						}

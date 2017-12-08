@@ -106,3 +106,13 @@ else
 	echo -e "SLL,\t SLL,\t Fail,\t edp16"
 
 fi
+
+./$1 testbench/Finals/SLLV_ed.bin
+
+if [ $? -eq 60 ] ; then
+	
+	echo -e "SLLV,\t SLLV,\t Pass,\t edp16"
+else
+	echo -e "SLLV,\t SLLV,\t Fail,\t edp16"
+
+fi

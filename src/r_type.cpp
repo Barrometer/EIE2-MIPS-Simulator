@@ -63,7 +63,7 @@ int32_t r_type(int32_t reg1, int32_t reg2, int8_t shift, int8_t function){
 	}
 
 	else if (function == 4){ // Shift Word Left Logical Variable
-		return (reg2<<reg1);
+		return (reg2<<(reg1&0x1f));
 
 	}
 	else if (function == 2){ // Logical Word Right Shift

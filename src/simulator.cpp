@@ -179,7 +179,7 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 			}
 			exit(-11);
 		}
-		unsigned opcode = instruction >> 26;
+		unsigned opcode = ((instruction >> 26)&0x3f);
 		if(debug_mode){
 			cerr<<"Opcode value is "<<opcode<<endl;
 		}
@@ -249,6 +249,9 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 					}
 					reg_LO = (long_result>>32); // upper half of word was quotient, put into reg_LO as per spec
 					reg_HI = (long_result&0xFFFFFFFF); // lower half of word was remainder, put into reg_HI as per spec
+					if(debug_mode){
+						cerr<<"DEBUG, reg_HI is "<<reg_HI<<" and reg_LO is "<<reg_LO<<endl;
+					}
 				}
 			}
 			// now for functions such as move from HI
@@ -292,7 +295,7 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 		}	
 
 		// J - types	AND branches
-		else if ((opcode == 2 || opcode == 3||opcode==1)||((opcode==0)&&(function==9)||(function==8))||((opcode>=4)&&(opcode<=7))) {// rather annoyingly, JR and JALR use opcode = 0. If opcode is between 4 and 7 its a branch type. If opcode is 1 it is one of several branches determined by reg2 of all things
+		else if ((opcode == 2 || opcode == 3||opcode==1)||((opcode==0)&&((function==9)||(function==8)))||((opcode>=4)&&(opcode<=7))) {// rather annoyingly, JR and JALR use opcode = 0. If opcode is between 4 and 7 its a branch type. If opcode is 1 it is one of several branches determined by reg2 of all things
 			//J_type_function;
 			if(debug_mode){
 				cerr << "J types and branches need implementing" << endl; 
@@ -544,7 +547,7 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 				cerr<<"Debug, dest register is register "<<((instruction >> 16) & 0x1f)<<endl;
 				cerr<<"Debug, dest has value "<<dest_register<<endl;
 				cerr<<"Debug, immediate is "<<immediate_constant<<endl;
-				cerr<<"Debug, instruction is "<<instruction<<endl;
+				cerr<<"Debug, instruction is "<<opcode<<endl;
 			
 				
 			}

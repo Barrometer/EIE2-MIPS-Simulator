@@ -199,6 +199,46 @@ else
 
 fi
 
+./$1 testbench/Finals/DIVUnorem1_ed.bin
+
+if [ $? -eq 2 ] ; then
+	
+	echo -e "DIVU1,   DIVU,   Pass,   edp16, [quotient no remainder expected]"
+else
+	echo -e "DIVU1,   DIVU,   Fail,   edp16, [quotient no remainder expected]"
+
+fi
+
+./$1 testbench/Finals/DIVUnorem2_ed.bin
+
+if [ $? -eq 0 ] ; then
+	
+	echo -e "DIVU2,   DIVU,   Pass,   edp16, [remainder no remainder expected]"
+else
+	echo -e "DIVU2,   DIVU,   Fail,   edp16, [remainder no remainder expected]"
+
+fi
+
+./$1 testbench/Finals/DIVurem1_ed.bin
+
+if [ $? -eq 1 ] ; then
+	
+	echo -e "DIVU3,   DIVU,   Pass,   edp16, [quotient  remainder expected]"
+else
+	echo -e "DIVU3,   DIVU,   Fail,   edp16, [quotient  remainder expected]"
+
+fi
+
+./$1 testbench/Finals/DIVurem2_ed.bin
+
+if [ $? -eq 3 ] ; then
+	
+	echo -e "DIVU4,   DIVU,   Pass,   edp16, [remainder  remainder expected]"
+else
+	echo -e "DIVU4,   DIVU,   Fail,   edp16, [remainder  remainder expected]"
+
+fi
+
 
 ./$1 testbench/Finals/BEQ_ms.bin
 
@@ -227,5 +267,15 @@ if [ $? -eq 21 ] ; then
 	echo -e "BGEZ,   BGEZ,   Pass,   ms5516"
 else
 	echo -e "BGEZ,   BGEZ,   Fail,   ms5516"
+
+fi
+
+./$1 testbench/Finals/BGEZAL_ms.bin
+
+if [ $? -eq 12 ] ; then
+	
+	echo -e "BGEZAL,   BGEZAL,   Pass,   ms5516"
+else
+	echo -e "BGEZAL,   BGEZAL,   Fail,   ms5516"
 
 fi

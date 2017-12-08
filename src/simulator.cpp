@@ -306,6 +306,9 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 			int32_t offset = (instruction &0xFFFF);
 			if(debug_mode){
 				cerr<<"Inst_index is "<<inst_index<<endl;
+				cerr<<"rs is "<<rs<<endl;
+				cerr<<"rt is "<<rt<<endl;
+				cerr<<"rd is "<<rd<<endl;
 			}
 			
 			

@@ -148,3 +148,13 @@ else
 	echo -e "MFHI,\t MFHI,\t Fail,\t edp16"
 
 fi
+
+./$1 testbench/Finals/MFLO_ed.bin
+
+if [ $? -eq 14 ] ; then
+	
+	echo -e "MFLO,\t MFLO,\t Pass,\t edp16"
+else
+	echo -e "MFLO,\t MFLO,\t Fail,\t edp16"
+
+fi

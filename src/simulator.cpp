@@ -309,7 +309,9 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 				cerr<<"rs is "<<rs<<endl;
 				cerr<<"rt is "<<rt<<endl;
 				cerr<<"rd is "<<rd<<endl;
-			}
+				cerr<<"offset is "<<offset<<endl;
+		
+		}
 			
 			
 			if(opcode==2){
@@ -369,7 +371,10 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 					do_jump=true; //update flag 1, as jump will happen on next instruction
 					
 					//calculate jump address
-					jump_address = (prog_counter_next+(offset<2));
+					jump_address = (prog_counter_next+(offset<<2));
+					if(debug_mode){
+						cerr<<"jump address is "<<jump_address<<endl;
+					}
 				}	
 				
 			}
@@ -388,7 +393,7 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 					do_jump=true; //update flag 1, as jump will happen on next instruction
 					
 					//calculate jump address
-					jump_address = (prog_counter_next+(offset<2));
+					jump_address = (prog_counter_next+(offset<<2));
 				}
 				
 			}
@@ -407,7 +412,7 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 					do_jump=true; //update flag 1, as jump will happen on next instruction
 					
 					//calculate jump address
-					jump_address = (prog_counter_next+(offset<2));
+					jump_address = (prog_counter_next+(offset<<2));
 				}
 				
 			}
@@ -426,7 +431,7 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 					do_jump=true; //update flag 1, as jump will happen on next instruction
 					
 					//calculate jump address
-					jump_address = (prog_counter_next+(offset<2));
+					jump_address = (prog_counter_next+(offset<<2));
 				}
 				
 			}
@@ -444,7 +449,7 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 						}
 						do_jump = true;//update flag 1, as jump will happen on next instruction
 						//calculate jump address
-						jump_address = (prog_counter_next+(offset<2));
+						jump_address = (prog_counter_next+(offset<<2));
 					}
 				
 				
@@ -462,7 +467,7 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 						}
 						do_jump = true;//update flag 1, as jump will happen on next instruction
 						//calculate jump address
-						jump_address = (prog_counter_next+(offset<2));
+						jump_address = (prog_counter_next+(offset<<2));
 						
 						//link
 						registers[31] = prog_counter+8; // return address
@@ -484,7 +489,7 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 						}
 						do_jump = true;//update flag 1, as jump will happen on next instruction
 						//calculate jump address
-						jump_address = (prog_counter_next+(offset<2));
+						jump_address = (prog_counter_next+(offset<<2));
 					}
 				
 				
@@ -502,7 +507,7 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 						}
 						do_jump = true;//update flag 1, as jump will happen on next instruction
 						//calculate jump address
-						jump_address = (prog_counter_next+(offset<2));
+						jump_address = (prog_counter_next+(offset<<2));
 						
 						//link
 						registers[31] = prog_counter+8; // return address

@@ -309,3 +309,14 @@ else
 	echo -e "BGEZAL,   BGEZAL,   Fail,   ms5516"
 
 fi
+
+./$1 testbench/Finals/SW_LW_ms.bin
+
+if [ $? -eq 15 ] ; then
+	
+	echo -e "SW/LW,   SW/LW,   Pass,   ms5516"
+else
+	echo -e "SW/LW,   SW/LW,   Fail,   ms5516"
+
+fi
+

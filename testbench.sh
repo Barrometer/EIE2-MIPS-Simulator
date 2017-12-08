@@ -239,6 +239,36 @@ else
 
 fi
 
+./$1 testbench/Finals/DIVtest1.bin
+
+if [ $? -eq 253 ] ; then
+	
+	echo -e "DIV1,   DIV,   Pass,   edp16, [signed no remainder]"
+else
+	echo -e "DIV1,   DIV,   Fail,   edp16, [signed no remainder]"
+
+fi
+
+./$1 testbench/Finals/DIVtest2.bin
+
+if [ $? -eq 255 ] ; then
+	
+	echo -e "DIV2,   DIV,   Pass,   edp16, [signed quotient]"
+else
+	echo -e "DIV2,   DIV,   Fail,   edp16, [signed quotient]"
+
+fi
+
+./$1 testbench/Finals/DIVtest3.bin
+
+if [ $? -eq 3 ] ; then
+	
+	echo -e "DIV3,   DIV,   Pass,   edp16, [signed remainder]"
+else
+	echo -e "DIV3,   DIV,   Fail,   edp16, [signed remainder]"
+
+fi
+
 
 ./$1 testbench/Finals/BEQ_ms.bin
 

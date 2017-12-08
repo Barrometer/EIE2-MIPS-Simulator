@@ -235,8 +235,8 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 					if(debug_mode){
 						cerr<<"DEBUG - was a multiply "<<endl;
 					}
-					reg_HI = (long_result>>32); // upper half of the 64 bit word put into reg_HI
-					reg_LO = (long_result&&0xFFFFFFFF); // lower half of the 64 bit word put into reg_LO
+					reg_HI = uint32_t (long_result>>32); // upper half of the 64 bit word put into reg_HI
+					reg_LO = uint32_t (long_result&0xFFFFFFFF); // lower half of the 64 bit word put into reg_LO
 					
 					if(debug_mode){
 						cerr<<"DEBUG, upper and lower words are "<<reg_HI<<" and "<<reg_LO<<endl;
@@ -248,7 +248,7 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 						cerr<<"DEBUG - was a divide "<<endl;
 					}
 					reg_LO = (long_result>>32); // upper half of word was quotient, put into reg_LO as per spec
-					reg_HI = (long_result&&0xFFFFFFFF); // lower half of word was remainder, put into reg_HI as per spec
+					reg_HI = (long_result&0xFFFFFFFF); // lower half of word was remainder, put into reg_HI as per spec
 				}
 			}
 			// now for functions such as move from HI

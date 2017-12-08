@@ -174,6 +174,7 @@ int64_t r_type_long(int32_t reg1, int32_t reg2, int8_t function){
 	}
 	else if(function == 25){//multu
 		resultu = reg1u*reg2u;
+		//cerr<<"DEBUG, reg1 is "<< reg1u<< "reg2 is "<< reg2u << "and resultu is "<< resultu<<endl;
 		return resultu;
 	}
 	else{ // invalid function

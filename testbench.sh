@@ -198,3 +198,13 @@ else
 	echo -e "BEQ-NotEqual,\t BEQ-NotEqual,\t Fail,\t ms5516"
 
 fi
+
+./$1 testbench/Finals/BGEZ_ms.bin
+
+if [ $? -eq 21 ] ; then
+	
+	echo -e "BGEZ,\t BGEZ,\t Pass,\t ms5516"
+else
+	echo -e "BGEZ,\t BGEZ,\t Fail,\t ms5516"
+
+fi

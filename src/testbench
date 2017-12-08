@@ -5,9 +5,9 @@ echo -e "TestID, Instruction, Status, Author, [Message]"
 
 if [ $? -eq 8 ] ; then
 	
-	echo -e "JALR_1, JALR, Pass, edp16"
+	echo -e "JALR_1, JALR, Pass, edp16, [this tests JALR by setting link register to r2 and jumping to r0. Return address is 0+8 = 8]"
 else
-	echo -e "JALR_1, JALR,Fail,edp16"
+	echo -e "JALR_1, JALR,Fail,edp16[this tests JALR by setting link register to r2 and jumping to r0]"
 
 fi
 
@@ -15,9 +15,9 @@ fi
 
 if [ $? -eq 15 ] ; then
 	
-	echo -e "ADDIU, ADDIU, Pass,   edp16"
+	echo -e "ADDIU, ADDIU, Pass,   edp16, [this tests addiu and jr in one instruction. Adds 15 into r2, jumps to r0]"
 else
-	echo -e "ADDIU, ADDIU,   Fail,   edp16"
+	echo -e "ADDIU, ADDIU,   Fail,   edp16[this tests addiu and jr in one instruction. Adds 15 into r2, jumps to r0]"
 
 fi
 

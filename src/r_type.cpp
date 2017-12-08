@@ -145,8 +145,8 @@ int64_t r_type_long(int32_t reg1, int32_t reg2, int8_t function){
 		LO = reg1/reg2; // LO is the quotient
 		HIu = reg1u%reg2u; // HI is the remainder / modulo and is always unsigned
 		
-		result = LO <<32; // the upper half of the result should be LO
-		result =+ HIu; // the lower half of the result should be HI
+		result = int64_t(LO) <<32; // the upper half of the result should be LO
+		result = result +int64_t (HIu); // the lower half of the result should be HI
 		
 		return result;
 	}
@@ -155,17 +155,16 @@ int64_t r_type_long(int32_t reg1, int32_t reg2, int8_t function){
 	
 		//divide by 0 is undefined
 		//define result of divide by 0 as 0
-		
 		if(reg2==0){
 			return 0;
 		}	
 		
 		LOu = reg1u/reg2u; // LO is the quotient
 		HIu = reg1u%reg2u; // HI is the remained / modulo
-		
-		result = LOu <<32; // the upper half of the result should be LO
-		result =+ HIu; // the lower half of the result should be HI
-		
+		//cerr<<"Lou is "<<LOu<<" and Hiu is "<<HIu<<endl;
+		result = int64_t(LOu) <<32; // the upper half of the result should be LO
+		result = result +int64_t( HIu); // the lower half of the result should be HI
+		//cerr<<"result is "<<result<<endl;
 		return result;
 	}
 	else if(function ==24){//mult

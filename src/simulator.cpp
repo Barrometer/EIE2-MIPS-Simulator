@@ -449,7 +449,7 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 					
 					//branch if rs >=0
 					
-					if(rs_val>=0){
+					if(rs>=0){
 						if(debug_mode){
 							cerr<<"DEBUG rs >=0, branching"<<endl;
 						}
@@ -467,7 +467,7 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 					
 					//branch if rs >=0
 					
-					if(rs_val>=0){
+					if(rs>=0){
 						if(debug_mode){
 							cerr<<"DEBUG rs >=0, branching and linking"<<endl;
 						}
@@ -489,7 +489,7 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 					
 					//branch if rs <0
 					
-					if(rs_val<0){
+					if(rs<0){
 						if(debug_mode){
 							cerr<<"DEBUG rs <0, branching"<<endl;
 						}
@@ -507,7 +507,7 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 					
 					//branch if rs <0
 					
-					if(rs_val<0){
+					if(rs<0){
 						if(debug_mode){
 							cerr<<"DEBUG rs <0, branching"<<endl;
 						}

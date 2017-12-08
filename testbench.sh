@@ -229,3 +229,13 @@ else
 	echo -e "BGEZ,   BGEZ,   Fail,   ms5516"
 
 fi
+
+./$1 testbench/Finals/BGEZAL_ms.bin
+
+if [ $? -eq 12 ] ; then
+	
+	echo -e "BGEZAL,   BGEZAL,   Pass,   ms5516"
+else
+	echo -e "BGEZAL,   BGEZAL,   Fail,   ms5516"
+
+fi

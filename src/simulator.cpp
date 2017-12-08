@@ -179,7 +179,7 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 			}
 			exit(-11);
 		}
-		unsigned opcode = instruction >> 26;
+		unsigned opcode = ((instruction >> 26)&0x3f);
 		if(debug_mode){
 			cerr<<"Opcode value is "<<opcode<<endl;
 		}
@@ -547,7 +547,7 @@ int main(int argc, char *argv[]){ //Arg stuff added for command line inputs
 				cerr<<"Debug, dest register is register "<<((instruction >> 16) & 0x1f)<<endl;
 				cerr<<"Debug, dest has value "<<dest_register<<endl;
 				cerr<<"Debug, immediate is "<<immediate_constant<<endl;
-				cerr<<"Debug, instruction is "<<instruction<<endl;
+				cerr<<"Debug, instruction is "<<opcode<<endl;
 			
 				
 			}

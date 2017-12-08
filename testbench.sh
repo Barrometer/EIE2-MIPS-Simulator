@@ -179,6 +179,17 @@ else
 
 fi
 
+./$1 testbench/Finals/MULTnegneg_ed.bin
+
+if [ $? -eq 6 ] ; then
+	
+	echo -e "MULT--,\t MULT,\t Pass,\t edp16"
+else
+	echo -e "MULT--,\t MULT,\t Fail,\t edp16"
+
+fi
+
+
 ./$1 testbench/Finals/BEQ_ms.bin
 
 if [ $? -eq 5 ] ; then
